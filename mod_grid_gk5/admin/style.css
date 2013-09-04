@@ -25,7 +25,7 @@
 	font-family: Arial, Verdana, sans-serif;
 }
 
-/*  */
+/* Base UI */
 #jform_params_grid_data,
 #jform_params_grid_data-lbl,
 #jform_params_about_us-lbl,
@@ -427,40 +427,40 @@ fieldset.panelform .desc {
 .gkColor12 { color: #caf!important; background: #caf; }
 
 
-.gkColor13 { color: #c99!important; }
-.gkColor14 { color: #9c9!important; }
-.gkColor15 { color: #99c!important; }
-.gkColor16 { color: #cc9!important; }
-.gkColor17 { color: #9c9!important; }
-.gkColor18 { color: #9cc!important; }
+.gkColor13 { color: #c99!important; background: #c99; }
+.gkColor14 { color: #9c9!important; background: #9c9; }
+.gkColor15 { color: #99c!important; background: #99c; }
+.gkColor16 { color: #cc9!important; background: #cc9; }
+.gkColor17 { color: #9c9!important; background: #9c9; }
+.gkColor18 { color: #9cc!important; background: #9cc; }
 
-.gkColor19 { color: #c97!important; }
-.gkColor20 { color: #c79!important; }
-.gkColor21 { color: #9c7!important; }
-.gkColor22 { color: #7c9!important; }
-.gkColor23 { color: #97c!important; }
-.gkColor24 { color: #79c!important; }
-
-
-.gkColor25 { color: #966!important; }
-.gkColor26 { color: #696!important; }
-.gkColor27 { color: #669!important; }
-.gkColor28 { color: #996!important; }
-.gkColor29 { color: #969!important; }
-.gkColor30 { color: #699!important; }
-
-.gkColor31 { color: #963!important; }
-.gkColor32 { color: #936!important; }
-.gkColor33 { color: #396!important; }
-.gkColor34 { color: #693!important; }
-.gkColor35 { color: #369!important; }
-.gkColor36 { color: #639!important; }
+.gkColor19 { color: #c97!important; background: #c97; }
+.gkColor20 { color: #c79!important; background: #c79; }
+.gkColor21 { color: #9c7!important; background: #9c7; }
+.gkColor22 { color: #7c9!important; background: #7c9; }
+.gkColor23 { color: #97c!important; background: #97c; }
+.gkColor24 { color: #79c!important; background: #79c; }
 
 
-.gkColor37 { color: #000!important; }
-.gkColor38 { color: #333!important; }
-.gkColor39 { color: #666!important; }
-.gkColor40 { color: #999!important; }
+.gkColor25 { color: #966!important; background: #966; }
+.gkColor26 { color: #696!important; background: #696; }
+.gkColor27 { color: #669!important; background: #669; }
+.gkColor28 { color: #996!important; background: #996; }
+.gkColor29 { color: #969!important; background: #969; }
+.gkColor30 { color: #699!important; background: #699; }
+
+.gkColor31 { color: #963!important; background: #963; }
+.gkColor32 { color: #936!important; background: #936; }
+.gkColor33 { color: #396!important; background: #396; }
+.gkColor34 { color: #693!important; background: #693; }
+.gkColor35 { color: #369!important; background: #369; }
+.gkColor36 { color: #639!important; background: #639; }
+
+
+.gkColor37 { color: #000!important; background: #000; }
+.gkColor38 { color: #333!important; background: #333; }
+.gkColor39 { color: #666!important; background: #666; }
+.gkColor40 { color: #999!important; background: #999; }
 
 /* Sortable block list */
 body.dragging, 

@@ -106,10 +106,10 @@ jQuery(document).ready(function() {
 							for(var y = 0; y < copy[x]['SIZE_' + sizeName + '_W']; y++) {
 								preview[freeX + y] += 1 * copy[x]['SIZE_' + sizeName + '_H'];
 							}
-							
+							// get the position of the block
 							copy[x]['POS_'+sizeName+'_X'] = freeX;
 							copy[x]['POS_'+sizeName+'_Y'] = freeY;
-							
+							// find the starting point - minimum value in the preview array
 							min = preview[0];
 							freeX = 0;
 							
@@ -119,11 +119,11 @@ jQuery(document).ready(function() {
 									min = preview[z];
 								}
 							} 
-							
+							// get the Y value based on the X
 							freeY = preview[freeX];
-							
+							/// set the minimum size for free space pointer
 							freeSize = 1;
-							
+							// find more free space (if exists)
 							for(var o = freeX+1; o < size; o++) {
 								if(preview[o] === freeY) {
 									freeSize++;
@@ -131,10 +131,10 @@ jQuery(document).ready(function() {
 									break;
 								}
 							}
-							
+							// push the results and clear copy
 							results.push(copy[x]);
 							copy.splice(x, 1);
-							
+							// set the flag to avoid searching proper free space
 							itemAdded = true;
 							break;
 						}
@@ -142,6 +142,8 @@ jQuery(document).ready(function() {
 					// if item wasn't added - work to fill the empty fields and start again
 					if(!itemAdded) {					
 						//[DEV]console.log('START', preview, freeX, freeY, freeSize);
+						
+						// Increase the empty spaces values in the preview array - we have to skip it
 						for(var a = freeX; (a < freeX + (freeSize === 0 ? 1 : freeSize)) && (a < size); a++) {
 							if(preview[a] <= freeY) {
 								preview[a] += 1.0;
@@ -150,12 +152,14 @@ jQuery(document).ready(function() {
 						
 						//[DEV]console.log(preview);
 						
+						// if there is some space to check
 						if(freeSize > 0) {
+							// increase the X
 							freeX = freeX + freeSize;
-							
+							// check if the next free space exist 
 							if(preview[freeX] > freeY) {
 								var founded = false;
-								
+								// set the Y
 								for(var b = freeX; b < size; b++) {
 									if(preview[b] <= freeY) {
 										freeX = b;
@@ -169,12 +173,14 @@ jQuery(document).ready(function() {
 								}
 							}
 						} else {
+							// skip if there is no space in this row
 							freeX++;
 						}
-											
+						// if X is too big				
 						if(freeX >= size) {
+							// skip to the next row
 							freeY++;
-							
+							// find the minimum value of Y for X
 							min = preview[0];
 							freeX = 0;
 							
@@ -185,25 +191,31 @@ jQuery(document).ready(function() {
 								}
 							}
 						}
-					
+						// if there is more space to check
 						if(freeX+1 < size) {
-							for(var o = freeX + ((freeSize === 0) ? 0 : 1); o < size; o++) {
-								if(preview[o] === freeY) {
+							// It is magic - I don't know why but it works perfectly in very strange cases
+							var addon = ((freeSize === 0) ? 0 : ((freeX == 0) ? 0: 1));
+							freeSize = 0;
+							// find the free area
+							for(var o = freeX + addon; o < size; o++) {
+								if(preview[o] <= freeY) {
 									freeSize++;
 								} else {
 									break;
 								}
 							}
 						} else {
+							// if there is no more space - set size to 0
 							freeSize = 0;
 						}
 						
 						//[DEV]console.log('END', freeX, freeY, freeSize);
 					}
 				}
-				
+				// render the visual preview
 				renderPreview(size, sizeName, results, preview, type);
 			} else {
+				// set height auto when there is no blocks defined
 				jQuery('#gk_grid_desktop_preview').html('<p>' + GKGridManagerLang["GRID_NO_BLOCKS"] + '</p>').css('height', 'auto');	
 				jQuery('#gk_grid_tablet_preview').html('<p>' + GKGridManagerLang["GRID_NO_BLOCKS"] + '</p>').css('height', 'auto');	
 				jQuery('#gk_grid_mobile_preview').html('<p>' + GKGridManagerLang["GRID_NO_BLOCKS"] + '</p>').css('height', 'auto');	
@@ -301,7 +313,7 @@ jQuery(document).ready(function() {
 					blockList[num]["SIZE_T_W"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_tablet_w').val();
 					blockList[num]["SIZE_T_H"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_tablet_h').val();
 					blockList[num]["SIZE_M_W"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_mobile_w').val();
-					blockList[num]["SIZE_M_H"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_mobile_w').val();
+					blockList[num]["SIZE_M_H"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_mobile_h').val();
 					blockList[num]['SIZE_DATA'] = 	blockList[num]['SIZE_D_W'] + ',' + 
 													blockList[num]['SIZE_D_H'] + ',' + 
 													blockList[num]['SIZE_T_W'] + ',' + 
@@ -397,7 +409,7 @@ jQuery(document).ready(function() {
 					"SIZE_T_W": jQuery('#gk_grid_form_add_tablet_w').val(),
 					"SIZE_T_H": jQuery('#gk_grid_form_add_tablet_h').val(),
 					"SIZE_M_W": jQuery('#gk_grid_form_add_mobile_w').val(),
-					"SIZE_M_H": jQuery('#gk_grid_form_add_mobile_w').val(),
+					"SIZE_M_H": jQuery('#gk_grid_form_add_mobile_h').val(),
 					"SIZE_DATA": ''
 				};
 				// generate an ID
