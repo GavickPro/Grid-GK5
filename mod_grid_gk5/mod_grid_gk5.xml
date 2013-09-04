@@ -63,12 +63,26 @@
 				        <option value="1">MOD_GRID_ENABLED</option>
 				</field>
 				
-				<field name="animation_speed" type="text" class="input-ms" size="5" default="250" label="MOD_GRID_ANIMATION_SPEED" description="MOD_GRID_ANIMATION_SPEED_DESC" />
+				<field name="animation_speed" type="list" default="normal" label="MOD_GRID_ANIMATION_SPEED" description="MOD_GRID_ANIMATION_SPEED_DESC">
+				        <option value="fast">MOD_GRID_FAST</option>
+				        <option value="normal">MOD_GRID_NORMAL</option>
+				        <option value="slow">MOD_GRID_SLOW</option>
+				</field>
+				
+				<field name="animation_random" type="list" default="0" class="gk_switch" label="MOD_GRID_ANIMATION_RANDOM" description="MOD_GRID_ANIMATION_RANDOM_DESC">
+				        <option value="0">MOD_GRID_DISABLED</option>
+				        <option value="1">MOD_GRID_ENABLED</option>
+				</field>
 				
 				<field name="animation_type" type="list" default="opacity" label="MOD_GRID_ANIMATION_TYPE" description="MOD_GRID_ANIMATION_TYPE_DESC">
 				        <option value="opacity">MOD_GRID_OPACITY</option>
-				        <option value="slide_vertical">MOD_GRID_SLIDE_VERTICAL</option>
-				        <option value="slide_horizontal">MOD_GRID_SLIDE_HORIZONTAL</option>
+				        <option value="scale">MOD_GRID_SCALE</option>
+				        <option value="rotate">MOD_GRID_ROTATE</option>
+				        <option value="rotate3d">MOD_GRID_ROTATE3D</option>
+				        <option value="top">MOD_GRID_TOP</option>
+				        <option value="right">MOD_GRID_RIGHT</option>
+				        <option value="bottom">MOD_GRID_BOTTOM</option>
+				        <option value="left">MOD_GRID_LEFT</option>
 				</field>
 			</fieldset>
 			<!-- advanced -->

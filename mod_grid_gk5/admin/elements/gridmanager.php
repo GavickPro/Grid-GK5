@@ -44,23 +44,29 @@ class JFormFieldGridmanager extends JFormField {
 					<h3>'.JText::_('MOD_GRID_PREVIEW').'</h3>
 				</div>
 				
-				<div class="gk_grid_content">
-					<h4>'.JText::_('MOD_GRID_DESKTOP_LAYOUT').'</h4>
-					
+				<div class="gk_grid_content">					
 					<div id="gk_grid_desktop_preview">
 						<span>'.JText::_('MOD_GRID_NO_BLOCKS').'</span>
 					</div>
 					
-					<h4>'.JText::_('MOD_GRID_TABLET_LAYOUT').'</h4>
+					<h4><i class="icon-desktop"></i></h4>
 					
-					<div id="gk_grid_tablet_preview">
-						<span>'.JText::_('MOD_GRID_NO_BLOCKS').'</span>
-					</div>
-					
-					<h4>'.JText::_('MOD_GRID_MOBILE_LAYOUT').'</h4>
-					
-					<div id="gk_grid_mobile_preview">
-						<span>'.JText::_('MOD_GRID_NO_BLOCKS').'</span>
+					<div class="gk_grid_mobile_preview">
+						<div>
+							<div id="gk_grid_tablet_preview">
+								<span>'.JText::_('MOD_GRID_NO_BLOCKS').'</span>
+							</div>
+							
+							<h4><i class="icon-tablet"></i></h4>
+						</div>
+						
+						<div>
+							<div id="gk_grid_mobile_preview">
+								<span>'.JText::_('MOD_GRID_NO_BLOCKS').'</span>
+							</div>
+							
+							<h4><i class="icon-mobile-phone"></i></h4>
+						</div>
 					</div>
 				</div>
 			</div>

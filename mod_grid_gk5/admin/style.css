@@ -26,6 +26,7 @@
 }
 
 /*  */
+#jform_params_grid_data,
 #jform_params_grid_data-lbl,
 #jform_params_about_us-lbl,
 #jform_params___field1-lbl,#invisible {
@@ -216,20 +217,17 @@ fieldset.panelform .desc {
 
 /* Grid editor */
 #gk_grid_manager {
-	border: 1px solid #ddd;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	margin: 0 auto;
+	margin: 0;
 	max-width: 530px;
 	overflow: hidden;
 	width:  100%;
 }
 #gk_grid_manager > div {
-	border-left: 1px solid #ddd;
+	
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -243,10 +241,8 @@ fieldset.panelform .desc {
 }
 
 .gk_grid_header {
-	background: #eee;
-	border-bottom: 1px solid #ddd;
 	overflow: hidden;
-	padding: 5px 10px;
+	padding: 5px 10px 20px;
 }
 
 .gk_grid_header h3 {
@@ -255,17 +251,22 @@ fieldset.panelform .desc {
 	margin: 5px 0;
 }
 
+.gk_grid_preview .gk_grid_header {
+	text-indent: 5px;
+}
+
 .gk_grid_btn {
 	background: #415e7f;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 1px;
+	border: none;
 	clear: none;
 	color: #fff;
 	cursor: pointer;
 	padding: 5px 10px;
 }
-
+.gk_grid_btn:hover { border: none}
 #gk_grid_add {
 	float: right;
 	margin: 0!important;
@@ -289,10 +290,10 @@ fieldset.panelform .desc {
 
 #gk_grid_form_add > div,
 .gk_grid_form_edit > div {
-	border-top: 1px solid #ddd;
+	border-top: 1px solid #eee;
 	margin-top: -250px;
 	opacity: 0; filter: alpha(opacity=0);
-	padding-top: 12px;
+	padding-top: 24px;
 	-webkit-transition: all .5s ease-out;
 	-moz-transition: all .5s ease-out;
 	-ms-transition: all .5s ease-out;
@@ -301,12 +302,12 @@ fieldset.panelform .desc {
 }
 
 .gk_grid_form_edit > div {
-	padding-top: 10px;
+	padding-top: 24px;
 }
 
 #gk_grid_form_add.active > div,
 .gk_grid_form_edit.active > div {
-	margin-top: 5px;
+	margin-top: 11px;
 	opacity: 1; filter: alpha(opacity=100);
 }
 
@@ -316,7 +317,8 @@ fieldset.panelform .desc {
 	margin: 2px 0;
 	overflow: hidden;
 }
-
+.gk_grid_form_edit > div > p:first-child { margin: 0 0 16px}
+.gk_grid_form_edit > div > p:last-child { margin: 16px 0 0}
 #gk_grid_form_add > div > p > label,
 .gk_grid_form_edit > div > p > label {
 	color: #666;
@@ -367,19 +369,23 @@ fieldset.panelform .desc {
 }
 
 #gk_grid_blocks_list > li {
-	background: #eee;
-	border: 1px solid #ddd;	
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	
+	border: 1px solid #e5e5e5;	
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 1px;
 	cursor: pointer;
 	font-size: 12px;
-	margin: 0 0 6px 0;
-	padding: 6px 8px;
+	margin: 0 0 8px;
+	padding: 12px;
 }
 
 #gk_grid_blocks_list > li > div.gk_handler > i:first-child {
 	color: #888;
+    float: right;
+    height: 39px;
+    margin: -12px -12px -12px 16px;
+	
 }
 
 #gk_grid_blocks_list > li > div.gk_handler > strong {
@@ -389,13 +395,13 @@ fieldset.panelform .desc {
 }
 
 #gk_grid_blocks_list > li > div.gk_handler > span {
-	color: #999;
-	font-size: 11px;
-	padding: 0 3px;
+	color: #bbb;
+    font-size: 10px;
+    padding: 0 8px;
 }
 
 #gk_grid_blocks_list > li > div.gk_handler > .icon-pencil {
-	color: #f90;
+	color: #999;
 	float: right;
 	margin-right: 10px;
 }
@@ -466,38 +472,51 @@ body.dragging * {
 	position: absolute;
 	opacity: 0.5;
 	z-index: 2000;
+	
 }
 
 #gk_grid_blocks_list li.placeholder {
-	background: #d1dbe7;
+	background: #e9f0f9;
 	border: 1px dashed #415e7f;
 	position: relative;
 }
 
 /* Preview */
 .gk_grid_content h4 {
-	color: #666;
-	font-size: 12px;
+	color: #aaa;
+	font-size: 20px;
 	margin: 10px 0;
 	text-align: center;
+}
+.gk_grid_mobile_preview > div {
+	float: left;
+	width: 35%;
+}
+.gk_grid_mobile_preview > div:first-child {
+	width: 65%;
 }
 #gk_grid_desktop_preview,
 #gk_grid_tablet_preview,
 #gk_grid_mobile_preview {
-	border: 1px solid #ccc;
+	border: 1px solid #e5e5e5;
 	margin: 0 auto;
 	overflow: hidden;
-	padding: 2px;
+	padding: 4px;
 	position: relative;
 	-webkit-transition: all .3s ease-out;
 	-moz-transition: all .3s ease-out;
 	-ms-transition: all .3s ease-out;
 	-o-transition: all .3s ease-out;
 	transition: all .3s ease-out;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
 }
 
 #gk_grid_desktop_preview {
-	width:  150px;
+	margin: 11px 0 0 15px;
+	width:  180px;
 }
 
 #gk_grid_tablet_preview {
@@ -506,7 +525,6 @@ body.dragging * {
 
 #gk_grid_mobile_preview {
 	width:  50px;
-	margin-bottom: 30px;
 }
 
 #gk_grid_desktop_preview p,
@@ -530,7 +548,7 @@ body.dragging * {
 }
 
 .gkGridElm.previewed {
-	border: 2px solid #544;
+	border: 3px solid #bbb;
 }
 
 /* jQuery Spinner UI */

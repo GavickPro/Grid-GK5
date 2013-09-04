@@ -1,186 +1,150 @@
 /**
-* Tabs GK5 - style 1
-* @package Joomla!
-* @Copyright (C) 2009-2012 Gavick.com
+* Grid GK5 - CSS style
+* @Copyright (C) 2013 Gavick.com
 * @ All rights reserved
-* @ Joomla! is Free Software
 * @ Released under GNU/GPL License : http://www.gnu.org/copyleft/gpl.html
 * @version $Revision: GK5 1.0 $
 **/
 
-/*
- *
- ==================  Edit Tabs  ================= */
-
-.gkTabsWrap.vertical ol {
-	border-bottom: 3px solid #97ccee;
-}                   
-.gkTabsWrap.vertical ol li,
-.gkTabsWrap.horizontal ol li {
-	color: #666;
-	text-shadow: 0 -1px 0 #eee;
-	background: #eee; /* Old browsers */
-}
-.gkTabsWrap.vertical ol li:hover,
-.gkTabsWrap.vertical ol li.active,
-.gkTabsWrap.horizontal ol li:hover,
-.gkTabsWrap.horizontal ol li.active {
-	color: #fff!important;
-	text-shadow: 0 -1px 0 #80b0cf;
-	background: #97ccee
-}
-.gkTabsContainer + ol {
-	border-top: 3px solid #97ccee!important;
-}
-.gkTabsItem {
-	background: #fff;
-}
-.gkTabsButtonNext,
-.gkTabsButtonPrev {
-	background: #ddd;
-}
-.gkTabsButtonNext:hover,
-.gkTabsButtonPrev:hover {
-	background: #eee;
-}
-.gkTabsWrap.horizontal > ol {
-	background: #fff;
-}
- 
-/* ==================  End  ===================== */
-
-
-/* 
- * VERTICAL mode 
- */
-
-.gkTabsGK5 {
-	position: relative;
+.gkGridGK5 {
 	overflow: hidden;
-}
-.gkTabsWrap {
-	margin: 0;
-}
-/* tabs */
-.gkTabsWrap.vertical ol {
-	background: transparent!important;
-	height: 38px;
-	margin: 0!important;
-	padding: 0!important;
-}
-.gkTabsWrap.vertical ol li,
-.gkTabsWrap.horizontal ol li {
-	border-radius: 2px 2px 0 0;
-	cursor: pointer;
-	float: left;
-	line-height: 38px!important;
-	list-style-type: none;
-	margin: 0 4px 0 0!important;
-	padding: 0 12px!important;
-	position: relative;
-	font-size: 13px;
-	font-weight: bold;
-}
-/* bottom tabs */
-.gkTabsContainer + ol {
-	border-bottom: none!important;
-}
-.gkTabsContainer + ol li {
-	border-radius: 0 0 2px 2px!important;
-}
-/* containers */
-.gkTabsContainer {
-	clear: both;
-	overflow: hidden;
+	-webkit-perspective: 1200;
+	-moz-perspective: 1200;
+	-ms-perspective: 1200;
+	perspective: 1200;
 	position: relative;
 }
-.gkTabsItem {
-	left: -9999px;
-	padding: 20px 2px;
-	position: absolute;
-	top: 0;
-	width: 100%;
-	z-index: 1;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-.gkTabsItem.active {
-	left: 0;
-	position: relative;
-	z-index: 2;
-}
-/* buttons prev/next */
-.gkTabsButtonNext,
-.gkTabsButtonPrev {
-	border-radius: 50%;
-	cursor: pointer;
-	height: 18px;
-	position: absolute;
-	right: 0;
-	font: 0/0px a;
-	top: 43%;
-	width: 18px;
-	z-index: 3;
-}
-.gkTabsButtonPrev {
-	left: 0;
-	right: inherit;
-}
-.gkTabsButtonNext:before,
-.gkTabsButtonPrev:before {
-	content: "›";
+
+.gkGridGK5 > img {
 	display: block;
-	font-size: 14px;
-	font-weight: bold;
-	height: 18px;
-	line-height: 17px;
-	text-align: center;
-	width: 18px;
-}
-.gkTabsButtonPrev:before {
-	content: "‹";
-}
-/* 
- * HORIZONTAL mode 
- */
- 
-.gkTabsWrap.horizontal {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	display: table;
+	height: auto;
 	width: 100%;
 }
-.gkTabsWrap.horizontal > ol,
-.gkTabsWrap.horizontal > .gkTabsContainer {
-	display: table-cell;
-	vertical-align: top;
-}
-.gkTabsWrap.horizontal > ol {
-	position: relative;
-	z-index: 5;
-}
-/* tabs */
 
-.gkTabsWrap.horizontal ol li {
-	cursor: pointer;
-	float: right;
-	border-radius: 2px;
-	margin: 0 0 3px!important;
+.gkGridGK5 > .gkGridElement {
+	opacity: 0; filter: alpha(opacity=0);
+	overflow: hidden;
+	position: absolute;
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	-ms-transition-property: all;
+	-o-transition-property: all;
+	transition-property: all;
+	-webkit-transition-timing-function: ease-out;
+	-moz-transition-timing-function: ease-out;
+	-ms-transition-timing-function: ease-out;
+	-o-transition-timing-function: ease-out;
+	transition-timing-function: ease-out;
+	z-index: 1;
 }
-.gkTabsWrap.horizontal ol li:hover,
-.gkTabsWrap.horizontal ol li.active {
-	/* line 45 */
+
+.gkGridGK5 > .gkGridElement.active {
+	opacity: 1; filter: alpha(opacity=100);
 }
-.gkTabsWrap.horizontal .gkTabsItem {
-	padding: 2px 20px
+/* Animation types */
+.gkGridGK5[data-type="scale"] > .gkGridElement {
+	-webkit-transform: scale(0.75);
+	-moz-transform: scale(0.75);
+	-ms-transform: scale(0.75);
+	-o-transform: scale(0.75);
+	transform: scale(0.75);
 }
-/* right tabs */
-.gkTabsWrap.horizontal .gkTabsContainer + ol {
-	border: none !important
+.gkGridGK5[data-type="scale"] > .gkGridElement.active {
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transform: scale(1);
 }
-.gkTabsWrap.horizontal .gkTabsContainer + ol li {
-	border-radius: 2px !important;
-	float: left;
+
+
+.gkGridGK5[data-type="rotate"] > .gkGridElement {
+	margin-top: 10%;
+	-webkit-transform: rotateZ(25deg);
+	-moz-transform: rotateZ(25deg);
+	-ms-transform: rotateZ(25deg);
+	-o-transform: rotateZ(25deg);
+	transform: rotateZ(25deg);
+}
+.gkGridGK5[data-type="rotate"] > .gkGridElement.active {
+	margin-top: 0%;
+	-webkit-transform: rotateZ(0deg);
+	-moz-transform: rotateZ(0deg);
+	-ms-transform: rotateZ(0deg);
+	-o-transform: rotateZ(0deg);
+	transform: rotateZ(0deg);
+}
+
+
+.gkGridGK5[data-type="rotate3d"] > .gkGridElement {
+	-webkit-transform: rotateY(45deg);
+	-moz-transform: rotateY(45deg);
+	-ms-transform: rotateY(45deg);
+	-o-transform: rotateY(45deg);
+	transform: rotateY(45deg);
+}
+.gkGridGK5[data-type="rotate3d"] > .gkGridElement.active {
+	-webkit-transform: rotateY(0deg);
+	-moz-transform: rotateY(0deg);
+	-ms-transform: rotateY(0deg);
+	-o-transform: rotateY(0deg);
+	transform: rotateY(0deg);
+}
+
+
+.gkGridGK5[data-type="bottom"] > .gkGridElement {
+	margin-top: 20%;
+}
+.gkGridGK5[data-type="bottom"] > .gkGridElement.active {
+	margin-top: 0%;
+}
+
+
+.gkGridGK5[data-type="top"] > .gkGridElement {
+	margin-top: -20%;
+}
+.gkGridGK5[data-type="top"] > .gkGridElement.active {
+	margin-top: 0%;
+}
+
+
+.gkGridGK5[data-type="left"] > .gkGridElement {
+	margin-left: -20%;
+}
+.gkGridGK5[data-type="left"] > .gkGridElement.active {
+	margin-left: 0%;
+}
+
+
+.gkGridGK5[data-type="right"] > .gkGridElement {
+	margin-left: 20%;
+}
+.gkGridGK5[data-type="right"] > .gkGridElement.active {
+	margin-left: 0%;
+}
+
+
+/* Animation speeds */
+.gkGridGK5[data-speed="normal"] > .gkGridElement {
+	-webkit-transition-duration: .5s;
+	-moz-transition-duration: .5s;
+	-ms-transition-duration: .5s;
+	-o-transition-duration: .5s;
+	transition-duration: .5s;
+}
+
+.gkGridGK5[data-speed="fast"] > .gkGridElement {
+	-webkit-transition-duration: .25s;
+	-moz-transition-duration: .25s;
+	-ms-transition-duration: .25s;
+	-o-transition-duration: .25s;
+	transition-duration: .25s;
+}
+
+.gkGridGK5[data-speed="slow"] > .gkGridElement {
+	-webkit-transition-duration: .75s;
+	-moz-transition-duration: .75s;
+	-ms-transition-duration: .75s;
+	-o-transition-duration: .75s;
+	transition-duration: .75s;
 }

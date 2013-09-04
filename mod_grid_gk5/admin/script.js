@@ -220,13 +220,14 @@ jQuery(document).ready(function() {
 				}
 			}
 			// set a new height;
-			area.css('height', max * 25 + "px");
+			area.css('height', max * (sizeName !== 'D' ? 25 : 30) + "px");
 			area.attr('data-height', max);
 			// generate the output
 			var htmlOutput = '';
 			
 			for(var i = 0, len = results.length; i < len; i++) {
-				htmlOutput += '<div class="gkGridElm gkColor'+results[i]['COLOR_ID']+'" data-id="'+results[i]['ID']+'" style="width: '+(results[i]['SIZE_'+sizeName+'_W'] * 25)+'px; height: '+(results[i]['SIZE_'+sizeName+'_H'] * 25)+'px; top: '+((results[i]['POS_'+sizeName+'_Y'] * 25)+2)+'px; left: '+((results[i]['POS_'+sizeName+'_X'] * 25)+2)+'px;"></div>';
+				var elementSize = sizeName !== 'D' ? 25 : 30;
+				htmlOutput += '<div class="gkGridElm gkColor'+results[i]['COLOR_ID']+'" data-id="'+results[i]['ID']+'" style="width: '+(results[i]['SIZE_'+sizeName+'_W'] * elementSize)+'px; height: '+(results[i]['SIZE_'+sizeName+'_H'] * elementSize)+'px; top: '+((results[i]['POS_'+sizeName+'_Y'] * elementSize)+4)+'px; left: '+((results[i]['POS_'+sizeName+'_X'] * elementSize)+4)+'px;"></div>';
 			}
 			
 			area.html(htmlOutput);

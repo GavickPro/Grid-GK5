@@ -51,7 +51,7 @@ class GridGK5Helper {
 	}
 	// function to render module code
 	public function render() {
-		if(is_array($this->config['grid_data']) && count($this->config['grid_data']) == 0) {
+		if(is_array($this->config['grid_data']) && count($this->config['grid_data']->blocks) == 0) {
 			echo JText::_('MOD_GRID_NO_BLOCKS');
 			return false;
 		}
@@ -82,15 +82,53 @@ class GridGK5Helper {
 			$document->addScript($uri->root().'modules/mod_grid_gk5/scripts/engine.'.($this->config['engine_mode']).'.js');
 		}
 		// include main module view
-		//require(JModuleHelper::getLayoutPath('mod_grid_gk5', 'default'));
+		require(JModuleHelper::getLayoutPath('mod_grid_gk5', 'default'));
 	}
 	// function to generate the module grid elements
-	public function moduleRender() {		
+	public function moduleRender() {
+		$amount = count($this->config["grid_data"]->blocks);		
 		// iterate all grid elements
-		for($i = 0; $i < count($this->config["grid_data"]); $i++) {
+		for($i = 0; $i < $amount; $i++) {
+			$item = $this->config["grid_data"]->blocks[$i];
+			$position = trim($this->config["grid_data"]->blocks[$i]->POSITION);
+			$num = 1;
+			
+			if(substr($position, -1) == ']') {
+				$num = $position;
+				$position = substr($position, 0, stripos($position, '['));
+				$num = str_replace(array('[', ']', $position), '', $num);
+				
+				if(is_numeric($num)) {
+					$num = $num * 1;
+				} else {
+					$num = 1;
+				}
+			}
 			// render the specific blocks
-			$this->mod_getter = JModuleHelper::getModules($this->config["grid_data"][$i]);
-			require(JModuleHelper::getLayoutPath('mod_grid_gk5','module'));
+			echo '<div class="gkGridElement gkGrid-'.($item->ID).(($this->config['animation'] == 0) ? ' active' : '').'">';
+
+			$this->mod_getter = JModuleHelper::getModules($position);
+			
+			if(is_array($this->mod_getter) && count($this->mod_getter) > 0) {
+				$iterator = 0;
+				$founded = false;
+				foreach(array_keys($this->mod_getter) as $m) { 
+					if($iterator == $num - 1) {
+						echo JModuleHelper::renderModule($this->mod_getter[$m]); 
+						$founded = true;
+						break;
+					}
+					
+					$iterator++;
+				}
+				
+				if(!$founded) {
+					echo '<strong>Error:</strong> Specified module on the used module position doesn\'t exist!';
+				}
+			} else {
+				echo '<strong>Error:</strong> Specified module position doesn\'t exist or is blank!';
+			}
+			echo '</div>';
 		}
 	}
 	// function to generate the module CSS code
@@ -106,16 +144,30 @@ class GridGK5Helper {
 		$mod_height_tablet = $this->config['grid_data']->heights->tablet;
 		$mod_height_mobile = $this->config['grid_data']->heights->mobile;
 		// define the blocks border
-		$output_desktop .= '#'.$this->config['module_id'].' .gkGridElement { border: ' . $this->config['grid_border'] . '; }' . "\n";
+		$output_desktop .= '#'.$this->config['module_id'].' .gkGridElement { border: ' . $this->config['grid_border'] . '; }' . "\n" . '.gkGridGK5 .gkImgDesktop { display: block; } .gkGridGK5 .gkImgTablet, .gkGridGK5 .gkImgMobile { display: none; } ' . "\n" ;
 		// define the blocks size and position
 		for($i = 0; $i < count($block_data); $i++) {
 			$el = $block_data[$i];
 			$output_desktop .= $prefix . $el->ID . ' { height: '.($el->SIZE_D_H * (100.0 / $mod_height_desktop)).'%; width: '.($el->SIZE_D_W * (100.0 / 6)).'%; left: '.($el->POS_D_X * (100.0 / 6)).'%; top: '.($el->POS_D_Y * (100.0 / $mod_height_desktop)).'%; }' . "\n";
-			$output_tablet .= $prefix . $el->ID . ' { height: '.($el->SIZE_T_H * (100.0 / $mod_height_tablet)).'%; width: '.($el->SIZE_T_W * (100.0 / 6)).'%; left: '.($el->POS_T_X * (100.0 / 6)).'%; top: '.($el->POS_T_Y * (100.0 / $mod_height_tablet)).'%; }' . "\n";
-			$output_mobile .= $prefix . $el->ID . ' { height: '.($el->SIZE_M_H * (100.0 / $mod_height_mobile)).'%; width: '.($el->SIZE_M_W * (100.0 / 6)).'%; left: '.($el->POS_M_X * (100.0 / 6)).'%; top: '.($el->POS_M_Y * (100.0 / $mod_height_mobile)).'%; }' . "\n";
+			$output_tablet .= $prefix . $el->ID . ' { height: '.($el->SIZE_T_H * (100.0 / $mod_height_tablet)).'%; width: '.($el->SIZE_T_W * (100.0 / 4)).'%; left: '.($el->POS_T_X * (100.0 / 4)).'%; top: '.($el->POS_T_Y * (100.0 / $mod_height_tablet)).'%; }' . "\n";
+			$output_mobile .= $prefix . $el->ID . ' { height: '.($el->SIZE_M_H * (100.0 / $mod_height_mobile)).'%; width: '.($el->SIZE_M_W * (100.0 / 2)).'%; left: '.($el->POS_M_X * (100.0 / 2)).'%; top: '.($el->POS_M_Y * (100.0 / $mod_height_mobile)).'%; }' . "\n";
 		}
 		// output the final CSS code
-		return $output_desktop . '@media (max-width: '.$this->config['tablet_width'].'px) { ' . "\n" . $output_tablet . '} ' . "\n" . '@media (max-width: '.$this->config['mobile_width'].'px) { ' . "\n" . $output_mobile . '} ';
+		return $output_desktop . '@media (max-width: '.$this->config['tablet_width'].'px) { ' . "\n" . '.gkGridGK5 .gkImgTablet { display: block; } .gkGridGK5 .gkImgDesktop, .gkGridGK5 .gkImgMobile { display: none; } ' . "\n" . $output_tablet . '} ' . "\n" . '@media (max-width: '.$this->config['mobile_width'].'px) { ' . "\n" . '.gkGridGK5 .gkImgMobile { display: block; } .gkGridGK5 .gkImgDesktop, .gkGridGK5 .gkImgTablet { display: none; } ' . "\n"  . $output_mobile . '} ';
+	}
+	// function to generate blank transparent PNG images
+	public function generateBlankImage($width, $height){ 
+		$image = imagecreatetruecolor($width, $height);
+		imagesavealpha($image, true);
+		$transparent = imagecolorallocatealpha($image, 0, 0, 0, 127);
+		imagefill($image, 0, 0, $transparent);
+		// cache the output
+		ob_start();
+		imagepng($image);
+		$img =  ob_get_contents();
+		ob_end_clean();
+		// return the string
+		return base64_encode($img);
 	}
 }
 
