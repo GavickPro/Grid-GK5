@@ -18,9 +18,7 @@ jimport('joomla.utilities.string');
 // Main GK Tab class
 class GridGK5Helper {
 	private $config; // configuration array
-	private $tabs; // array of tabs content
 	private $mod_getter; // object to get the modules
-	private $active_tab; // number of the active tab
 	// constructor
 	public function __construct($module, $params) {
 		// put the module params to the $config variable
@@ -46,73 +44,27 @@ class GridGK5Helper {
                 $doc->addScript('https://ajax.googleapis.com/ajax/libs/jquery/1.10/jquery.min.js');
             }
         }
-		// initializing the tabs array
-		$this->tabs = array(
-								"content" => array(),
-								"title" => array(),
-								"type" => array(),
-								"id" => array(),
-								"animation" => array()
-							);
 		// getting module ID
-		$this->config['module_id'] = ($this->config['automatic_module_id'] == 1) ? 'gk-tabs-' . $module->id : $params->get('module_id', 'gk-tabs-1');
-		// check the data source type
-		if($this->config['module_data_source'] == 'tabsmanager') {
-			// parse JSON data if it comes from the tabs manager
-			$this->config['tabs_data'] = json_decode($this->config['tabs_data']);
-		}
+		$this->config['module_id'] = ($params->get('module_id', '') == '') ? 'gk-grid-' . $module->id : $params->get('module_id', '');
+		// parse JSON data which comes from the grid manager
+		$this->config['grid_data'] = json_decode($this->config['grid_data']);
 	}
 	// function to render module code
 	public function render() {
-		if(count($this->config['tabs_data']) == 0) {
-			echo JText::_('mod_grid_gk5_NO_TABS_TO_SHOW');
+		if(is_array($this->config['grid_data']) && count($this->config['grid_data']) == 0) {
+			echo JText::_('MOD_GRID_NO_BLOCKS');
 			return false;
-		}
-		// get the user access levels
-		$access = JAccess::getAuthorisedViewLevels(JFactory::getUser()->get('id'));
-		// remove the unpublished or invisible for specified user tabs and put only necessary tabs
-		for($i = 0; $i < count($this->config['tabs_data']); $i++) {
-			if($this->config['tabs_data'][$i]->published == 1 && ($this->checkAccess($this->config['tabs_data'][$i]->access, $access))) {
-				// parse plugins code in the tab XHTML content
-				if($this->config['parse_plugins'] == 1) {
-					$this->config['tabs_data'][$i]->content = JHtml::_('content.prepare', $this->config['tabs_data'][$i]->content);
-				}
-				// put the data to specific array
-				array_push($this->tabs["title"], $this->config['tabs_data'][$i]->name);
-				array_push($this->tabs["content"], $this->config['tabs_data'][$i]->content);
-				array_push($this->tabs["type"], $this->config['tabs_data'][$i]->type);
-				array_push($this->tabs["id"], $this->config['tabs_data'][$i]->id);
-				array_push($this->tabs["animation"], $this->config['tabs_data'][$i]->animation);
-			}
 		}
 		// create necessary instances of the Joomla! classes 
 		$document = JFactory::getDocument();
 		$uri = JURI::getInstance();
 		// add stylesheets to document header
 		if($this->config["useCSS"] == 1) {
-			$document->addStyleSheet( $uri->root().'modules/mod_grid_gk5/styles/'.$this->config['styleCSS'].'.css', 'text/css' );
+			$document->addStyleSheet( $uri->root().'modules/mod_grid_gk5/styles/style.css', 'text/css' );
 		}
-		// get active tab:
-		$uri_id_fragment = '';
-		// puth height CSS rules
+		// put the generated CSS rules to head
 		$document = JFactory::getDocument();
-		$document->addStyleDeclaration('#'.$this->config['module_id'].' .gkTabsContainer0, #'.$this->config['module_id'].' .gkTabsContainer1, #'.$this->config['module_id'].' .gkTabsContainer2 { height: '.$this->config['module_height'].'px; }');
-		// if url selection is enabled
-		if($this->config['url_tab_selection'] == 1) {
-			if($uri->getVar('gktab', '') != '') {
-				$this->active_tab = (int) $uri->getVar('gktab', '');
-			}
-		}	
-		// if cookie selection is enabled
-		if($this->config['cookie_tab_selection'] == 1) {
-			if(isset($_COOKIE['gktab-' . $this->config['module_id']])) {
-				$this->active_tab = (int) $_COOKIE['gktab-' . $this->config['module_id']];
-			}
-		}
-		// check the active_tab value
-		if($this->active_tab > count($this->config['tabs_data'])) {
-			$this->active_tab = 1;
-		}
+		$document->addStyleDeclaration($this->moduleCSS());
 		// getting module head section datas
 		$headData = $document->getHeadData();
 		// generate keys of script section
@@ -129,84 +81,41 @@ class GridGK5Helper {
 			// add new script tag connected with mootools from module
 			$document->addScript($uri->root().'modules/mod_grid_gk5/scripts/engine.'.($this->config['engine_mode']).'.js');
 		}
-		// generate GK Tab configuration array
-		$config_data = array(
-			"activator" =>			$this->config['activator'],
-			"animation" =>			$this->config['animation'],
-			"animation_speed" => 	$this->config['animation_speed'],
-			"animation_interval" =>	$this->config['animation_interval'],
-			"animation_type" =>		$this->config['animation_type'],
-			"animation_function" => $this->config['animation_function'],
-			"active_tab" =>			$this->active_tab,
-			"cookie_save" => 		$this->config['cookie_tab_selection'],
-			"auto_height" =>		($this->config['tabs_position'] == 'left' || $this->config['tabs_position'] == 'right') ? 0 : $this->config['module_auto_height'],
-			"module_height" =>		$this->config['module_height'],
-			"rtl" => $this->config['rtl']
-		);
-		// store it as JSON
-		$config_data = str_replace('"', '\'', json_encode($config_data));
-		//
-		if($this->config['tabs_position'] == 'left' || $this->config['tabs_position'] == 'right') {
-			$document->addStyleDeclaration('#'.$this->config['module_id'].' .gkTabsWrap > ol { width: '.$this->config['tabs_width'].'px; }'. "\n");
-		}
-		// override styles for RTL
-		if($this->config['rtl'] == 1) {
-			$document->addStyleDeclaration('.gkTabsItem.active { left: auto; right: 0; }'."\n");
-			$document->addStyleDeclaration('.gkTabsItem { left: auto; right: -9999px; }'."\n");
-		}
 		// include main module view
-		require(JModuleHelper::getLayoutPath('mod_grid_gk5', 'default'));
+		//require(JModuleHelper::getLayoutPath('mod_grid_gk5', 'default'));
 	}
-	// function to generate the module tabs
+	// function to generate the module grid elements
 	public function moduleRender() {		
-		// iterate all tabs
-		for($i = 0; $i < count($this->tabs["content"]); $i++) {
-			// check if selected tab is active
-			$active_class = ($this->active_tab == $i + 1) ? ' active' : '';
-			// if the tab contains the module
-			if($this->tabs["type"][$i] == 'module') {
-				$this->mod_getter = JModuleHelper::getModules($this->tabs["content"][$i]);
-				require(JModuleHelper::getLayoutPath('mod_grid_gk5','module'));
-			}
-			// tabs with XHTML code
-			if($this->tabs["type"][$i] == 'xhtml') {
-				$content = $this->tabs["content"][$i];
-				require(JModuleHelper::getLayoutPath('mod_grid_gk5','xhtml'));
-			}
+		// iterate all grid elements
+		for($i = 0; $i < count($this->config["grid_data"]); $i++) {
+			// render the specific blocks
+			$this->mod_getter = JModuleHelper::getModules($this->config["grid_data"][$i]);
+			require(JModuleHelper::getLayoutPath('mod_grid_gk5','module'));
 		}
 	}
-	// function to check the tab access levels
-	private function checkAccess($tabACL, $userACL) {
-		// cast to integer
-		$tabACL = (int) $tabACL;
-		// if the user have priviliges return true
-		if(in_array($tabACL, $userACL)) {
-			return true;
+	// function to generate the module CSS code
+	public function moduleCSS() {
+		// prepare the helper variables
+		$prefix = '#'.$this->config['module_id'].' .gkGridElement.gkGrid-';
+		$output_desktop = '';
+		$output_tablet = '';
+		$output_mobile = '';
+		// ge the grid settings
+		$block_data = $this->config['grid_data']->blocks;
+		$mod_height_desktop = $this->config['grid_data']->heights->desktop;
+		$mod_height_tablet = $this->config['grid_data']->heights->tablet;
+		$mod_height_mobile = $this->config['grid_data']->heights->mobile;
+		// define the blocks border
+		$output_desktop .= '#'.$this->config['module_id'].' .gkGridElement { border: ' . $this->config['grid_border'] . '; }' . "\n";
+		// define the blocks size and position
+		for($i = 0; $i < count($block_data); $i++) {
+			$el = $block_data[$i];
+			$output_desktop .= $prefix . $el->ID . ' { height: '.($el->SIZE_D_H * (100.0 / $mod_height_desktop)).'%; width: '.($el->SIZE_D_W * (100.0 / 6)).'%; left: '.($el->POS_D_X * (100.0 / 6)).'%; top: '.($el->POS_D_Y * (100.0 / $mod_height_desktop)).'%; }' . "\n";
+			$output_tablet .= $prefix . $el->ID . ' { height: '.($el->SIZE_T_H * (100.0 / $mod_height_tablet)).'%; width: '.($el->SIZE_T_W * (100.0 / 6)).'%; left: '.($el->POS_T_X * (100.0 / 6)).'%; top: '.($el->POS_T_Y * (100.0 / $mod_height_tablet)).'%; }' . "\n";
+			$output_mobile .= $prefix . $el->ID . ' { height: '.($el->SIZE_M_H * (100.0 / $mod_height_mobile)).'%; width: '.($el->SIZE_M_W * (100.0 / 6)).'%; left: '.($el->POS_M_X * (100.0 / 6)).'%; top: '.($el->POS_M_Y * (100.0 / $mod_height_mobile)).'%; }' . "\n";
 		}
-		// in other way return false
-		return false;
-	}
-}
-// helper class to create objects from XML
-if(!class_exists('GKTabObject')) {
-	class GKTabObject {
-		public $name;
-		public $type;
-		public $content;
-		public $published;
-		public $access;
-		public $id;
-		public $animation;
-		
-		function __construct($name, $type, $content, $published, $access, $id, $animation) {
-			$this->name = $name;
-			$this->type = $type;
-			$this->content = $content;
-			$this->published = $published;
-			$this->access = $access;
-			$this->id = $id;
-			$this->animation = $animation;
-		}
+		// output the final CSS code
+		return $output_desktop . '@media (max-width: '.$this->config['tablet_width'].'px) { ' . "\n" . $output_tablet . '} ' . "\n" . '@media (max-width: '.$this->config['mobile_width'].'px) { ' . "\n" . $output_mobile . '} ';
 	}
 }
 

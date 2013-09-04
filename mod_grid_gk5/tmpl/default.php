@@ -13,6 +13,11 @@
 // access restriction
 defined('_JEXEC') or die('Restricted access');
 
+//"animation" =>			$this->config['animation'];
+//"animation_speed" => 	$this->config['animation_speed'];
+//"animation_interval" =>	$this->config['animation_interval'];
+//"animation_type" =>		$this->config['animation_type'];
+
 ?>
 
 <?php if(count($this->tabs["title"]) > 0) : ?>

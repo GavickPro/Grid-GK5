@@ -12,22 +12,34 @@ jQuery(document).ready(function() {
 		var blockListUL = jQuery('#gk_grid_blocks_list');
 		var dataJSON = jQuery('#jform_params_grid_data');
 		// templates
-		var listItem = '<li data-id="{{ID}}"><div class="gk_handler"><i class="icon-sign-blank gkColor{{COLOR-ID}}" data-colorid="{{COLOR-ID}}"></i><strong>{{POSITION}}</strong> <span data-size="{{SIZE-DATA}}" class="data-size-info">'+GKGridManagerLang["LIST_SIZE"]+' {{SIZE-D-W}} &times; {{SIZE-D-H}}</span> <i class="icon-remove" data-id="{{ID}}"></i> <i class="icon-pencil" data-id="{{ID}}"></i></div><div class="gk_grid_form_edit"><div><p><label>'+GKGridManagerLang["LIST_POSITION"]+'</label> <span><input type="text" size="15" class="gk_grid_form_add_position" value="{{POSITION}}" /></span></p><p><label>'+GKGridManagerLang["LIST_DESKTOP_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="6" value="{{SIZE-D-W}}" class="gk_grid_form_add_desktop_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE-D-H}}" class="gk_grid_form_add_desktop_h" /></span></p><p><label>'+GKGridManagerLang["LIST_TABLET_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="4" value="{{SIZE-T-W}}" class="gk_grid_form_add_tablet_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE-T-H}}" class="gk_grid_form_add_tablet_h" /></span></p><p><label>'+GKGridManagerLang["LIST_MOBILE_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="2" value="{{SIZE-M-W}}" class="gk_grid_form_add_mobile_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE-M-H}}" class="gk_grid_form_add_mobile_h" /></span></p><p><button class="gk_grid_form_edit_cancel gk_grid_btn" data-id="{{ID}}">'+GKGridManagerLang["LIST_CANCEL"]+'</button><button class="gk_grid_form_edit_save gk_grid_btn" data-id="{{ID}}">'+GKGridManagerLang["LIST_SAVE_BLOCK"]+'</button></p></div></div></li>';
+		var listItem = '<li data-id="{{ID}}"><div class="gk_handler"><i class="icon-sign-blank gkColor{{COLOR_ID}}" data-colorid="{{COLOR_ID}}"></i><strong>{{POSITION}}</strong> <span data-size="{{SIZE_DATA}}" class="data-size-info">'+GKGridManagerLang["LIST_SIZE"]+' {{SIZE_D_W}} &times; {{SIZE_D_H}}</span> <i class="icon-remove" data-id="{{ID}}"></i> <i class="icon-pencil" data-id="{{ID}}"></i></div><div class="gk_grid_form_edit"><div><p><label>'+GKGridManagerLang["LIST_POSITION"]+'</label> <span><input type="text" size="15" class="gk_grid_form_add_position" value="{{POSITION}}" /></span></p><p><label>'+GKGridManagerLang["LIST_DESKTOP_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="6" value="{{SIZE_D_W}}" class="gk_grid_form_add_desktop_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE_D_H}}" class="gk_grid_form_add_desktop_h" /></span></p><p><label>'+GKGridManagerLang["LIST_TABLET_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="4" value="{{SIZE_T_W}}" class="gk_grid_form_add_tablet_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE_T_H}}" class="gk_grid_form_add_tablet_h" /></span></p><p><label>'+GKGridManagerLang["LIST_MOBILE_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="2" value="{{SIZE_M_W}}" class="gk_grid_form_add_mobile_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE_M_H}}" class="gk_grid_form_add_mobile_h" /></span></p><p><button class="gk_grid_form_edit_cancel gk_grid_btn" data-id="{{ID}}">'+GKGridManagerLang["LIST_CANCEL"]+'</button><button class="gk_grid_form_edit_save gk_grid_btn" data-id="{{ID}}">'+GKGridManagerLang["LIST_SAVE_BLOCK"]+'</button></p></div></div></li>';
 		// data storage
 		var blockList = [];
 		//
 		// private methods
 		//
 		var updateJSON = function() {
-			dataJSON.text(JSON.stringify(blockList));
 			calculatePreview('desktop');
 			calculatePreview('tablet');
 			calculatePreview('mobile');
+			dataJSON.text(
+				JSON.stringify(
+					{
+						"blocks": blockList, 
+						"heights": {
+							"desktop": jQuery('#gk_grid_desktop_preview').attr('data-height'),
+							"tablet": jQuery('#gk_grid_tablet_preview').attr('data-height'),
+							"mobile": jQuery('#gk_grid_mobile_preview').attr('data-height')
+						}
+					}
+				)
+			);
 		};
 		
 		var readJSON = function() {
 			if(dataJSON.text() !== '') {
 				blockList = JSON.parse(dataJSON.text());
+				blockList = blockList.blocks;
 			}
 		};
 		
@@ -61,18 +73,18 @@ jQuery(document).ready(function() {
 					preview[i] = 0;
 				}
 				// put the first item to the results array - it will always works
-				for(var i = 0; i < copy[0]['SIZE-' + sizeName + '-W']; i++) {
-					preview[i] += 1 * copy[0]['SIZE-' + sizeName + '-H'];
+				for(var i = 0; i < copy[0]['SIZE_' + sizeName + '_W']; i++) {
+					preview[i] += 1 * copy[0]['SIZE_' + sizeName + '_H'];
 				}
 				
-				copy[0]['POS-X'] = 0;
-				copy[0]['POS-Y'] = 0;
+				copy[0]['POS_'+sizeName+'_X'] = 0;
+				copy[0]['POS_'+sizeName+'_Y'] = 0;
 				
-				freeX += 1 * copy[0]['SIZE-' + sizeName + '-W']; 
+				freeX += 1 * copy[0]['SIZE_' + sizeName + '_W']; 
 				freeSize = size - freeX;
 				
 				if(freeX >= size) {
-					freeY = 1 * copy[0]['SIZE-' + sizeName + '-H'];
+					freeY = 1 * copy[0]['SIZE_' + sizeName + '_H'];
 					freeX = 0;
 					freeSize = size;
 				}
@@ -89,14 +101,14 @@ jQuery(document).ready(function() {
 					// search the next element
 					for(var x = 0; x < copy.length; x++) {
 						// if element has proper size for the allowed free space
-						if(copy[x]['SIZE-' + sizeName + '-W'] <= freeSize) {
+						if(copy[x]['SIZE_' + sizeName + '_W'] <= freeSize) {
 							// put the element to an array
-							for(var y = 0; y < copy[x]['SIZE-' + sizeName + '-W']; y++) {
-								preview[freeX + y] += 1 * copy[x]['SIZE-' + sizeName + '-H'];
+							for(var y = 0; y < copy[x]['SIZE_' + sizeName + '_W']; y++) {
+								preview[freeX + y] += 1 * copy[x]['SIZE_' + sizeName + '_H'];
 							}
 							
-							copy[x]['POS-X'] = freeX;
-							copy[x]['POS-Y'] = freeY;
+							copy[x]['POS_'+sizeName+'_X'] = freeX;
+							copy[x]['POS_'+sizeName+'_Y'] = freeY;
 							
 							min = preview[0];
 							freeX = 0;
@@ -209,11 +221,12 @@ jQuery(document).ready(function() {
 			}
 			// set a new height;
 			area.css('height', max * 25 + "px");
+			area.attr('data-height', max);
 			// generate the output
 			var htmlOutput = '';
 			
 			for(var i = 0, len = results.length; i < len; i++) {
-				htmlOutput += '<div class="gkGridElm gkColor'+results[i]['COLOR-ID']+'" data-id="'+results[i]['ID']+'" style="width: '+(results[i]['SIZE-'+sizeName+'-W'] * 25)+'px; height: '+(results[i]['SIZE-'+sizeName+'-H'] * 25)+'px; top: '+((results[i]['POS-Y'] * 25)+2)+'px; left: '+((results[i]['POS-X'] * 25)+2)+'px;"></div>';
+				htmlOutput += '<div class="gkGridElm gkColor'+results[i]['COLOR_ID']+'" data-id="'+results[i]['ID']+'" style="width: '+(results[i]['SIZE_'+sizeName+'_W'] * 25)+'px; height: '+(results[i]['SIZE_'+sizeName+'_H'] * 25)+'px; top: '+((results[i]['POS_'+sizeName+'_Y'] * 25)+2)+'px; left: '+((results[i]['POS_'+sizeName+'_X'] * 25)+2)+'px;"></div>';
 			}
 			
 			area.html(htmlOutput);
@@ -282,21 +295,21 @@ jQuery(document).ready(function() {
 					}
 					// get the new values
 					blockList[num]["POSITION"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_position').val();
-					blockList[num]["SIZE-D-W"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_desktop_w').val();
-					blockList[num]["SIZE-D-H"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_desktop_h').val();
-					blockList[num]["SIZE-T-W"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_tablet_w').val();
-					blockList[num]["SIZE-T-H"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_tablet_h').val();
-					blockList[num]["SIZE-M-W"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_mobile_w').val();
-					blockList[num]["SIZE-M-H"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_mobile_w').val();
-					blockList[num]['SIZE-DATA'] = 	blockList[num]['SIZE-D-W'] + ',' + 
-													blockList[num]['SIZE-D-H'] + ',' + 
-													blockList[num]['SIZE-T-W'] + ',' + 
-													blockList[num]['SIZE-T-H'] + ',' + 
-													blockList[num]['SIZE-M-W'] + ',' + 
-													blockList[num]['SIZE-M-H'];
+					blockList[num]["SIZE_D_W"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_desktop_w').val();
+					blockList[num]["SIZE_D_H"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_desktop_h').val();
+					blockList[num]["SIZE_T_W"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_tablet_w').val();
+					blockList[num]["SIZE_T_H"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_tablet_h').val();
+					blockList[num]["SIZE_M_W"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_mobile_w').val();
+					blockList[num]["SIZE_M_H"] = blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_add_mobile_w').val();
+					blockList[num]['SIZE_DATA'] = 	blockList[num]['SIZE_D_W'] + ',' + 
+													blockList[num]['SIZE_D_H'] + ',' + 
+													blockList[num]['SIZE_T_W'] + ',' + 
+													blockList[num]['SIZE_T_H'] + ',' + 
+													blockList[num]['SIZE_M_W'] + ',' + 
+													blockList[num]['SIZE_M_H'];
 					// update the list block element
 					blockListUL.find('li[data-id="'+ID+'"] > div > strong').text(blockList[num]["POSITION"]);
-					blockListUL.find('li[data-id="'+ID+'"] > div > span').html('Size: ' + blockList[num]["SIZE-D-W"] + ' &times; ' + blockList[num]["SIZE-D-H"]);
+					blockListUL.find('li[data-id="'+ID+'"] > div > span').html('Size: ' + blockList[num]["SIZE_D_W"] + ' &times; ' + blockList[num]["SIZE_D_H"]);
 					// close the form - remove the active class from form
 					jQuery('#gk_grid_blocks_list li[data-id="'+ID+'"] .gk_grid_form_edit').removeClass('active');
 					// preview - disable
@@ -376,15 +389,15 @@ jQuery(document).ready(function() {
 				e.preventDefault();
 				var results = {
 					"ID": '',
-					"COLOR-ID": '',
+					"COLOR_ID": '',
 					"POSITION": jQuery('#gk_grid_form_add_position').val(),
-					"SIZE-D-W": jQuery('#gk_grid_form_add_desktop_w').val(),
-					"SIZE-D-H": jQuery('#gk_grid_form_add_desktop_h').val(),
-					"SIZE-T-W": jQuery('#gk_grid_form_add_tablet_w').val(),
-					"SIZE-T-H": jQuery('#gk_grid_form_add_tablet_h').val(),
-					"SIZE-M-W": jQuery('#gk_grid_form_add_mobile_w').val(),
-					"SIZE-M-H": jQuery('#gk_grid_form_add_mobile_w').val(),
-					"SIZE-DATA": ''
+					"SIZE_D_W": jQuery('#gk_grid_form_add_desktop_w').val(),
+					"SIZE_D_H": jQuery('#gk_grid_form_add_desktop_h').val(),
+					"SIZE_T_W": jQuery('#gk_grid_form_add_tablet_w').val(),
+					"SIZE_T_H": jQuery('#gk_grid_form_add_tablet_h').val(),
+					"SIZE_M_W": jQuery('#gk_grid_form_add_mobile_w').val(),
+					"SIZE_M_H": jQuery('#gk_grid_form_add_mobile_w').val(),
+					"SIZE_DATA": ''
 				};
 				// generate an ID
 				var iterator = 1;
@@ -404,29 +417,29 @@ jQuery(document).ready(function() {
 						colorIterator++;
 					}
 				}
-				results['COLOR-ID'] = colorIterator;
+				results['COLOR_ID'] = colorIterator;
 				// generate the size data
-				results['SIZE-DATA'] = 	results['SIZE-D-W'] + ',' + 
-										results['SIZE-D-H'] + ',' + 
-										results['SIZE-T-W'] + ',' + 
-										results['SIZE-T-H'] + ',' + 
-										results['SIZE-M-W'] + ',' + 
-										results['SIZE-M-H'];
+				results['SIZE_DATA'] = 	results['SIZE_D_W'] + ',' + 
+										results['SIZE_D_H'] + ',' + 
+										results['SIZE_T_W'] + ',' + 
+										results['SIZE_T_H'] + ',' + 
+										results['SIZE_M_W'] + ',' + 
+										results['SIZE_M_H'];
 				// check the most important data
 				var validation = true;
 				var errorInfo = '';
 				
-				if(results['SIZE-D-W'] > 6) {
+				if(results['SIZE_D_W'] > 6) {
 					validation = false;
 					errorInfo += GKGridManagerLang["LIST_ERROR_DESKTOP"] + "\n";
 				}
 				
-				if(results['SIZE-T-W'] > 4) {
+				if(results['SIZE_T_W'] > 4) {
 					validation = false;
 					errorInfo += GKGridManagerLang["LIST_ERROR_TABLET"] + "\n";
 				}
 				
-				if(results['SIZE-M-W'] > 2) {
+				if(results['SIZE_M_W'] > 2) {
 					validation = false;
 					errorInfo += GKGridManagerLang["LIST_ERROR_MOBILE"] + "\n";
 				}
