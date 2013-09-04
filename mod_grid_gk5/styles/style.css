@@ -1,0 +1,186 @@
+/**
+* Tabs GK5 - style 1
+* @package Joomla!
+* @Copyright (C) 2009-2012 Gavick.com
+* @ All rights reserved
+* @ Joomla! is Free Software
+* @ Released under GNU/GPL License : http://www.gnu.org/copyleft/gpl.html
+* @version $Revision: GK5 1.0 $
+**/
+
+/*
+ *
+ ==================  Edit Tabs  ================= */
+
+.gkTabsWrap.vertical ol {
+	border-bottom: 3px solid #97ccee;
+}                   
+.gkTabsWrap.vertical ol li,
+.gkTabsWrap.horizontal ol li {
+	color: #666;
+	text-shadow: 0 -1px 0 #eee;
+	background: #eee; /* Old browsers */
+}
+.gkTabsWrap.vertical ol li:hover,
+.gkTabsWrap.vertical ol li.active,
+.gkTabsWrap.horizontal ol li:hover,
+.gkTabsWrap.horizontal ol li.active {
+	color: #fff!important;
+	text-shadow: 0 -1px 0 #80b0cf;
+	background: #97ccee
+}
+.gkTabsContainer + ol {
+	border-top: 3px solid #97ccee!important;
+}
+.gkTabsItem {
+	background: #fff;
+}
+.gkTabsButtonNext,
+.gkTabsButtonPrev {
+	background: #ddd;
+}
+.gkTabsButtonNext:hover,
+.gkTabsButtonPrev:hover {
+	background: #eee;
+}
+.gkTabsWrap.horizontal > ol {
+	background: #fff;
+}
+ 
+/* ==================  End  ===================== */
+
+
+/* 
+ * VERTICAL mode 
+ */
+
+.gkTabsGK5 {
+	position: relative;
+	overflow: hidden;
+}
+.gkTabsWrap {
+	margin: 0;
+}
+/* tabs */
+.gkTabsWrap.vertical ol {
+	background: transparent!important;
+	height: 38px;
+	margin: 0!important;
+	padding: 0!important;
+}
+.gkTabsWrap.vertical ol li,
+.gkTabsWrap.horizontal ol li {
+	border-radius: 2px 2px 0 0;
+	cursor: pointer;
+	float: left;
+	line-height: 38px!important;
+	list-style-type: none;
+	margin: 0 4px 0 0!important;
+	padding: 0 12px!important;
+	position: relative;
+	font-size: 13px;
+	font-weight: bold;
+}
+/* bottom tabs */
+.gkTabsContainer + ol {
+	border-bottom: none!important;
+}
+.gkTabsContainer + ol li {
+	border-radius: 0 0 2px 2px!important;
+}
+/* containers */
+.gkTabsContainer {
+	clear: both;
+	overflow: hidden;
+	position: relative;
+}
+.gkTabsItem {
+	left: -9999px;
+	padding: 20px 2px;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.gkTabsItem.active {
+	left: 0;
+	position: relative;
+	z-index: 2;
+}
+/* buttons prev/next */
+.gkTabsButtonNext,
+.gkTabsButtonPrev {
+	border-radius: 50%;
+	cursor: pointer;
+	height: 18px;
+	position: absolute;
+	right: 0;
+	font: 0/0px a;
+	top: 43%;
+	width: 18px;
+	z-index: 3;
+}
+.gkTabsButtonPrev {
+	left: 0;
+	right: inherit;
+}
+.gkTabsButtonNext:before,
+.gkTabsButtonPrev:before {
+	content: "›";
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	height: 18px;
+	line-height: 17px;
+	text-align: center;
+	width: 18px;
+}
+.gkTabsButtonPrev:before {
+	content: "‹";
+}
+/* 
+ * HORIZONTAL mode 
+ */
+ 
+.gkTabsWrap.horizontal {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	display: table;
+	width: 100%;
+}
+.gkTabsWrap.horizontal > ol,
+.gkTabsWrap.horizontal > .gkTabsContainer {
+	display: table-cell;
+	vertical-align: top;
+}
+.gkTabsWrap.horizontal > ol {
+	position: relative;
+	z-index: 5;
+}
+/* tabs */
+
+.gkTabsWrap.horizontal ol li {
+	cursor: pointer;
+	float: right;
+	border-radius: 2px;
+	margin: 0 0 3px!important;
+}
+.gkTabsWrap.horizontal ol li:hover,
+.gkTabsWrap.horizontal ol li.active {
+	/* line 45 */
+}
+.gkTabsWrap.horizontal .gkTabsItem {
+	padding: 2px 20px
+}
+/* right tabs */
+.gkTabsWrap.horizontal .gkTabsContainer + ol {
+	border: none !important
+}
+.gkTabsWrap.horizontal .gkTabsContainer + ol li {
+	border-radius: 2px !important;
+	float: left;
+}
