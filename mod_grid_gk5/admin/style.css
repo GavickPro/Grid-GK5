@@ -539,6 +539,7 @@ body.dragging * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	cursor: pointer;
 	position: absolute;
 	-webkit-transition: all .3s ease-out;
 	-moz-transition: all .3s ease-out;
