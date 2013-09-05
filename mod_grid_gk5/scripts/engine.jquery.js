@@ -1,32 +1,34 @@
 jQuery(window).load(function(){
-	jQuery('.gkGridGK5').each(function(i,el) {
-		el = jQuery(el);
-		var animation = el.attr('data-animation');
-		var animation_random = el.attr('data-random');
-		var animation_speed = el.attr('data-speed') == 'normal' ? 500 : (el.attr('data-speed') == 'fast') ? 250 : 750;
-		var animation_type = el.attr('data-type');
-		
-		if(animation === '1') {
-			var blocks = el.find('.gkGridElement');
+	setTimeout(function() {
+		jQuery('.gkGridGK5').each(function(i,el) {
+			el = jQuery(el);
+			var animation = el.attr('data-animation');
+			var animation_random = el.attr('data-random');
+			var animation_speed = el.attr('data-speed') == 'normal' ? 500 : (el.attr('data-speed') == 'fast') ? 250 : 750;
+			var animation_type = el.attr('data-type');
 			
-			if(animation_random === '0') {
-				// linear
-				for(var i = 0, len = blocks.length; i < len; i++) {
-					gkGridGK5AddClass(jQuery(blocks[i]), 'active', i * (animation_speed / 2.0));
+			if(animation === '1') {
+				var blocks = el.find('.gkGridElement');
+				
+				if(animation_random === '0') {
+					// linear
+					for(var i = 0, len = blocks.length; i < len; i++) {
+						gkGridGK5AddClass(jQuery(blocks[i]), 'active', i * (animation_speed / 2.0));
+					}
+				} else { // or random animation
+					var randomVector = [];
+					for(var i = 0, len = blocks.length; i < len; i++) {
+						randomVector[i] = i;
+					}
+					randomVector = gkGridGK5Shuffle(randomVector);
+					//
+					for(var j = 0, len = blocks.length; j < len; j++) {
+						gkGridGK5AddClass(jQuery(blocks[randomVector[j]]), 'active', j * (animation_speed / 2.0));
+					}		
 				}
-			} else { // or random animation
-				var randomVector = [];
-				for(var i = 0, len = blocks.length; i < len; i++) {
-					randomVector[i] = i;
-				}
-				randomVector = gkGridGK5Shuffle(randomVector);
-				//
-				for(var j = 0, len = blocks.length; j < len; j++) {
-					gkGridGK5AddClass(jQuery(blocks[randomVector[j]]), 'active', j * (animation_speed / 2.0));
-				}		
 			}
-		}
-	});
+		});
+	}, 500);
 });
 
 function gkGridGK5AddClass(elm, className, delay) {
