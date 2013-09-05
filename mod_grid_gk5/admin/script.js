@@ -388,6 +388,32 @@ jQuery(document).ready(function() {
 				 	updateJSON();
 				}
 			});
+			// initialize the clickable preview
+			jQuery('#gk_grid_desktop_preview').click(function(e) {
+				activatePreview(e);
+			});
+			jQuery('#gk_grid_tablet_preview').click(function(e) {
+				activatePreview(e);
+			});
+			jQuery('#gk_grid_mobile_preview').click(function(e) {
+				activatePreview(e);
+			});
+		};
+		// 
+		var activatePreview = function(e, type) {
+			if(jQuery(e.target).attr('data-id')) {
+				var ID = jQuery(e.target).attr('data-id');
+				// add new previewed class
+				jQuery('#gk_grid_desktop_preview div').removeClass('previewed');
+				jQuery('#gk_grid_desktop_preview div[data-id="'+ID+'"]').addClass('previewed'); 
+				jQuery('#gk_grid_tablet_preview div').removeClass('previewed');
+				jQuery('#gk_grid_tablet_preview div[data-id="'+ID+'"]').addClass('previewed'); 
+				jQuery('#gk_grid_mobile_preview div').removeClass('previewed');
+				jQuery('#gk_grid_mobile_preview div[data-id="'+ID+'"]').addClass('previewed'); 
+				// open the proper editor
+				blockListUL.find('li .gk_grid_form_edit').removeClass('active');
+				blockListUL.find('li[data-id="'+ID+'"] .gk_grid_form_edit').addClass('active');
+			}
 		};
 		//
 		var initAddForm = function() {
