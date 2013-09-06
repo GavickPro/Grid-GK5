@@ -323,8 +323,18 @@ jQuery(document).ready(function() {
 					// update the list block element
 					blockListUL.find('li[data-id="'+ID+'"] > div > strong').text(blockList[num]["POSITION"]);
 					blockListUL.find('li[data-id="'+ID+'"] > div > span').html('Size: ' + blockList[num]["SIZE_D_W"] + ' &times; ' + blockList[num]["SIZE_D_H"]);
+					
+					// generate a new ID
+					var iteratorID = 1;
+					while(jQuery('#gk_grid_blocks_list li[data-id="'+blockList[num]["POSITION"]+'-'+iteratorID+'"]').length > 0) {
+						iteratorID++;
+					}
+					// store new ID
+					blockList[num]["ID"] = blockList[num]["POSITION"] + '-' + iteratorID;
+					// .. and change the data-id attribute
+					jQuery('#gk_grid_blocks_list li[data-id="'+ID+'"]').attr('data-id', blockList[num]["ID"]);
 					// close the form - remove the active class from form
-					jQuery('#gk_grid_blocks_list li[data-id="'+ID+'"] .gk_grid_form_edit').removeClass('active');
+					jQuery('#gk_grid_blocks_list li[data-id="'+blockList[num]["ID"]+'"] .gk_grid_form_edit').removeClass('active');
 					// preview - disable
 					jQuery('.gk_grid_preview .previewed').removeClass('previewed');
 					// update data in the storage
