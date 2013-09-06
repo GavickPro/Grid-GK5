@@ -105,7 +105,7 @@ class GridGK5Helper {
 				}
 			}
 			// render the specific blocks
-			echo '<div class="gkGridElement gkGrid-'.($item->ID).(($this->config['animation'] == 0) ? ' active' : '').'">';
+			echo '<div class="gkGridElement gkGrid-'.str_replace(array('[', ']'), array('_', ''), $item->ID).(($this->config['animation'] == 0) ? ' active' : '').'">';
 
 			$this->mod_getter = JModuleHelper::getModules($position);
 			
@@ -148,9 +148,9 @@ class GridGK5Helper {
 		// define the blocks size and position
 		for($i = 0; $i < count($block_data); $i++) {
 			$el = $block_data[$i];
-			$output_desktop .= $prefix . $el->ID . ' { height: '.($el->SIZE_D_H * (100.0 / $mod_height_desktop)).'%; width: '.($el->SIZE_D_W * (100.0 / 6)).'%; left: '.($el->POS_D_X * (100.0 / 6)).'%; top: '.($el->POS_D_Y * (100.0 / $mod_height_desktop)).'%; }' . "\n";
-			$output_tablet .= $prefix . $el->ID . ' { height: '.($el->SIZE_T_H * (100.0 / $mod_height_tablet)).'%; width: '.($el->SIZE_T_W * (100.0 / 4)).'%; left: '.($el->POS_T_X * (100.0 / 4)).'%; top: '.($el->POS_T_Y * (100.0 / $mod_height_tablet)).'%; }' . "\n";
-			$output_mobile .= $prefix . $el->ID . ' { height: '.($el->SIZE_M_H * (100.0 / $mod_height_mobile)).'%; width: '.($el->SIZE_M_W * (100.0 / 2)).'%; left: '.($el->POS_M_X * (100.0 / 2)).'%; top: '.($el->POS_M_Y * (100.0 / $mod_height_mobile)).'%; }' . "\n";
+			$output_desktop .= $prefix . str_replace(array('[', ']'), array('_', ''), $el->ID) . ' { height: '.($el->SIZE_D_H * (100.0 / $mod_height_desktop)).'%; width: '.($el->SIZE_D_W * (100.0 / 6)).'%; left: '.($el->POS_D_X * (100.0 / 6)).'%; top: '.($el->POS_D_Y * (100.0 / $mod_height_desktop)).'%; }' . "\n";
+			$output_tablet .= $prefix . str_replace(array('[', ']'), array('_', ''), $el->ID) . ' { height: '.($el->SIZE_T_H * (100.0 / $mod_height_tablet)).'%; width: '.($el->SIZE_T_W * (100.0 / 4)).'%; left: '.($el->POS_T_X * (100.0 / 4)).'%; top: '.($el->POS_T_Y * (100.0 / $mod_height_tablet)).'%; }' . "\n";
+			$output_mobile .= $prefix . str_replace(array('[', ']'), array('_', ''), $el->ID) . ' { height: '.($el->SIZE_M_H * (100.0 / $mod_height_mobile)).'%; width: '.($el->SIZE_M_W * (100.0 / 2)).'%; left: '.($el->POS_M_X * (100.0 / 2)).'%; top: '.($el->POS_M_Y * (100.0 / $mod_height_mobile)).'%; }' . "\n";
 		}
 		// output the final CSS code
 		return $output_desktop . '@media (max-width: '.$this->config['tablet_width'].'px) { ' . "\n" . '.gkGridGK5 .gkImgTablet { display: block; } .gkGridGK5 .gkImgDesktop, .gkGridGK5 .gkImgMobile { display: none; } ' . "\n" . $output_tablet . '} ' . "\n" . '@media (max-width: '.$this->config['mobile_width'].'px) { ' . "\n" . '.gkGridGK5 .gkImgMobile { display: block; } .gkGridGK5 .gkImgDesktop, .gkGridGK5 .gkImgTablet { display: none; } ' . "\n"  . $output_mobile . '} ';
