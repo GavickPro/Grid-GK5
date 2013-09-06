@@ -321,18 +321,23 @@ jQuery(document).ready(function() {
 													blockList[num]['SIZE_M_W'] + ',' + 
 													blockList[num]['SIZE_M_H'];
 					// update the list block element
+					var previousPositionName = blockListUL.find('li[data-id="'+ID+'"] > div > strong').text();
 					blockListUL.find('li[data-id="'+ID+'"] > div > strong').text(blockList[num]["POSITION"]);
 					blockListUL.find('li[data-id="'+ID+'"] > div > span').html('Size: ' + blockList[num]["SIZE_D_W"] + ' &times; ' + blockList[num]["SIZE_D_H"]);
 					
-					// generate a new ID
-					var iteratorID = 1;
-					while(jQuery('#gk_grid_blocks_list li[data-id="'+blockList[num]["POSITION"]+'-'+iteratorID+'"]').length > 0) {
-						iteratorID++;
+					// generate a new ID - if necessary
+					if(blockList[num]["POSITION"] !== previousPositionName) {
+						var iteratorID = 1;
+						while(jQuery('#gk_grid_blocks_list li[data-id="'+blockList[num]["POSITION"]+'-'+iteratorID+'"]').length > 0) {
+							iteratorID++;
+						}
+						// store new ID
+						blockList[num]["ID"] = blockList[num]["POSITION"] + '-' + iteratorID;
+						// .. and change the data-id attribute
+						jQuery('#gk_grid_blocks_list li[data-id="'+ID+'"]').attr('data-id', blockList[num]["ID"]);
+						jQuery('#gk_grid_blocks_list .gk_grid_form_edit_cancel[data-id="'+ID+'"]').attr('data-id', blockList[num]["ID"]);
+						jQuery('#gk_grid_blocks_list .gk_grid_form_edit_save[data-id="'+ID+'"]').attr('data-id', blockList[num]["ID"]);
 					}
-					// store new ID
-					blockList[num]["ID"] = blockList[num]["POSITION"] + '-' + iteratorID;
-					// .. and change the data-id attribute
-					jQuery('#gk_grid_blocks_list li[data-id="'+ID+'"]').attr('data-id', blockList[num]["ID"]);
 					// close the form - remove the active class from form
 					jQuery('#gk_grid_blocks_list li[data-id="'+blockList[num]["ID"]+'"] .gk_grid_form_edit').removeClass('active');
 					// preview - disable
