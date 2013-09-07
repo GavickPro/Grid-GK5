@@ -8,9 +8,25 @@
 
 .gkGridGK5 {
 	overflow: hidden;	
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+@-moz-document url-prefix() {
+	.gkGridGK5 {
+		-webkit-transform: translate3d(0, 0, 0) scale(1.00001);
+		-moz-transform: translate3d(0, 0, 0) scale(1.00001);
+		-ms-transform: translate3d(0, 0, 0) scale(1.00001);
+		-o-transform: translate3d(0, 0, 0) scale(1.00001);
+		transform: translate3d(0, 0, 0) scale(1.00001);
+	}
 }
 
 .gkGridGK5Wrap {
+	background: url('loader.gif') no-repeat center center;
 	-webkit-perspective: 1200;
 	-moz-perspective: 1200;
 	-ms-perspective: 1200;
@@ -36,11 +52,11 @@
 	-ms-transition-property: all;
 	-o-transition-property: all;
 	transition-property: all;
-	-webkit-transition-timing-function: ease-out;
-	-moz-transition-timing-function: ease-out;
-	-ms-transition-timing-function: ease-out;
-	-o-transition-timing-function: ease-out;
-	transition-timing-function: ease-out;
+	-webkit-transition-timing-function: cubic-bezier(.31,.77,.46,.92) ;
+	-moz-transition-timing-function: cubic-bezier(.31,.77,.46,.92) ;
+	-ms-transition-timing-function: cubic-bezier(.31,.77,.46,.92) ;
+	-o-transition-timing-function: cubic-bezier(.31,.77,.46,.92) ;
+	transition-timing-function: cubic-bezier(.31,.77,.46,.92) ;
 	z-index: 1;
 }
 
@@ -158,3 +174,4 @@
  * Additional styles for modules inside the GK Grid
  */
  
+/* Coming soon */

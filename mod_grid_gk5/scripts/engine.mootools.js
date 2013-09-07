@@ -4,6 +4,7 @@ window.addEvent('load', function(){
 			var animation = el.getProperty('data-animation');
 			var animation_random = el.getProperty('data-random');
 			var animation_speed = el.getProperty('data-speed') == 'normal' ? 500 : (el.getProperty('data-speed') == 'fast') ? 250 : 750;
+			var animation_divider = el.getProperty('data-speed') == 'normal' ? 4 : (el.getProperty('data-speed') == 'fast') ? 2 : 6;
 			var animation_type = el.getProperty('data-type');
 			
 			if(animation === '1') {
@@ -12,7 +13,7 @@ window.addEvent('load', function(){
 				if(animation_random === '0') {
 					// linear
 					for(var i = 0, len = blocks.length; i < len; i++) {
-						gkGridGK5AddClass(blocks[i], 'active', i * (animation_speed / 2.0));
+						gkGridGK5AddClass(blocks[i], 'active', i * (animation_speed / animation_divider));
 					}
 				} else { // or random animation
 					var randomVector = [];
@@ -22,7 +23,7 @@ window.addEvent('load', function(){
 					randomVector = gkGridGK5Shuffle(randomVector);
 					//
 					for(var j = 0, len = blocks.length; j < len; j++) {
-						gkGridGK5AddClass(blocks[randomVector[j]], 'active', j * (animation_speed / 2.0));
+						gkGridGK5AddClass(blocks[randomVector[j]], 'active', j * (animation_speed / animation_divider));
 					}		
 				}
 			}
