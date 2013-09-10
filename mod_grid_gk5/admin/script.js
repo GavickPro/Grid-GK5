@@ -2,6 +2,17 @@ jQuery.noConflict();
 
 jQuery(document).ready(function() {
 	// GKGridManager module
+	// remove unnecessary labels 
+	jQuery('#jform_params_about_us-lbl').parent().css('display', 'none');
+	jQuery('#jform_params_about_us-lbl').parents().eq(2).find('.controls').css('margin-left', '15px');
+	jQuery('#jform_params___field1-lbl').parent().css('display', 'none');
+	jQuery('#jform_params___field1-lbl').parents().eq(1).find('.controls').css('margin-left', '0px');
+	jQuery('#gk_grid_manager').parents().eq(1).find('.controls').css('margin-left', '0px');
+	
+	
+	// input-append
+	jQuery('.input-px').each(function(i, el){jQuery(el).parent().html("<div class=\"input-prepend\">" + jQuery(el).parent().html() + "<span class=\"add-on\">px</span></div>")});
+	
 	var GKGridManager = (function () {
 		//
 		// private fields
@@ -12,7 +23,7 @@ jQuery(document).ready(function() {
 		var blockListUL = jQuery('#gk_grid_blocks_list');
 		var dataJSON = jQuery('#jform_params_grid_data');
 		// templates
-		var listItem = '<li data-id="{{ID}}"><div class="gk_handler"><i class="icon-sign-blank gkColor{{COLOR_ID}}" data-colorid="{{COLOR_ID}}"></i><strong>{{POSITION}}</strong> <span data-size="{{SIZE_DATA}}" class="data-size-info">'+GKGridManagerLang["LIST_SIZE"]+' {{SIZE_D_W}} &times; {{SIZE_D_H}}</span> <i class="icon-remove" data-id="{{ID}}"></i> <i class="icon-pencil" data-id="{{ID}}"></i></div><div class="gk_grid_form_edit"><div><p><label>'+GKGridManagerLang["LIST_POSITION"]+'</label> <span><input type="text" size="15" class="gk_grid_form_add_position" value="{{POSITION}}" /></span></p><p><label>'+GKGridManagerLang["LIST_DESKTOP_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="6" value="{{SIZE_D_W}}" class="gk_grid_form_add_desktop_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE_D_H}}" class="gk_grid_form_add_desktop_h" /></span></p><p><label>'+GKGridManagerLang["LIST_TABLET_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="4" value="{{SIZE_T_W}}" class="gk_grid_form_add_tablet_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE_T_H}}" class="gk_grid_form_add_tablet_h" /></span></p><p><label>'+GKGridManagerLang["LIST_MOBILE_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="2" value="{{SIZE_M_W}}" class="gk_grid_form_add_mobile_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE_M_H}}" class="gk_grid_form_add_mobile_h" /></span></p><p><button class="gk_grid_form_edit_cancel gk_grid_btn" data-id="{{ID}}">'+GKGridManagerLang["LIST_CANCEL"]+'</button><button class="gk_grid_form_edit_save gk_grid_btn" data-id="{{ID}}">'+GKGridManagerLang["LIST_SAVE_BLOCK"]+'</button></p></div></div></li>';
+		var listItem = '<li data-id="{{ID}}"><div class="gk_handler"><i class="icon-sign-blank gkColor{{COLOR_ID}}" data-colorid="{{COLOR_ID}}"></i><strong>{{POSITION}}</strong> <span data-size="{{SIZE_DATA}}" class="data-size-info">'+GKGridManagerLang["LIST_SIZE"]+' {{SIZE_D_W}} &times; {{SIZE_D_H}}</span> <i class="icon-remove" data-id="{{ID}}"></i> <i class="icon-pencil-2" data-id="{{ID}}"></i></div><div class="gk_grid_form_edit"><div><p><label>'+GKGridManagerLang["LIST_POSITION"]+'</label> <span><input type="text" size="15" class="gk_grid_form_add_position" value="{{POSITION}}" /></span></p><p><label>'+GKGridManagerLang["LIST_DESKTOP_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="6" value="{{SIZE_D_W}}" class="gk_grid_form_add_desktop_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE_D_H}}" class="gk_grid_form_add_desktop_h" /></span></p><p><label>'+GKGridManagerLang["LIST_TABLET_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="4" value="{{SIZE_T_W}}" class="gk_grid_form_add_tablet_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE_T_H}}" class="gk_grid_form_add_tablet_h" /></span></p><p><label>'+GKGridManagerLang["LIST_MOBILE_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="2" value="{{SIZE_M_W}}" class="gk_grid_form_add_mobile_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE_M_H}}" class="gk_grid_form_add_mobile_h" /></span></p><p><button class="gk_grid_form_edit_cancel gk_grid_btn" data-id="{{ID}}">'+GKGridManagerLang["LIST_CANCEL"]+'</button><button class="gk_grid_form_edit_save gk_grid_btn" data-id="{{ID}}">'+GKGridManagerLang["LIST_SAVE_BLOCK"]+'</button></p></div></div></li>';
 		// data storage
 		var blockList = [];
 		//
@@ -258,7 +269,7 @@ jQuery(document).ready(function() {
 				if(jQuery(e.target).prop('tagName') == 'LI') {
 					li = jQuery(e.target);
 				} else if(
-					(jQuery(e.target).prop('tagName') == 'I' && jQuery(e.target).hasClass('icon-pencil')) ||
+					(jQuery(e.target).prop('tagName') == 'I' && jQuery(e.target).hasClass('icon-pencil-2')) ||
 					(jQuery(e.target).prop('tagName') == 'SPAN' && jQuery(e.target).hasClass('data-size-info'))
 				) {
 					li = jQuery(e.target).parent().parent();

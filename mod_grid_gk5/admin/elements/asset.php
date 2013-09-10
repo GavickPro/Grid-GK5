@@ -39,12 +39,12 @@ class JFormFieldAsset extends JFormField {
 		. 'GKGridManagerLang["LIST_ERROR_TABLET"] = "'. JText::_('MOD_GRID_LIST_ERROR_TABLET') . '";' . "\n"
 		. 'GKGridManagerLang["LIST_ERROR_MOBILE"] = "'. JText::_('MOD_GRID_LIST_ERROR_MOBILE') . '";' . "\n"; 
 		$doc->addScriptDeclaration($script_lang);
-		$doc->addScript(JURI::root().$this->element['path'].'jquery.js');
+		//$doc->addScript(JURI::root().$this->element['path'].'jquery.js');
 		$doc->addScript(JURI::root().$this->element['path'].'jquery.spinner.js');
 		$doc->addScript(JURI::root().$this->element['path'].'jquery.sortable.js');
 		$doc->addScript(JURI::root().$this->element['path'].'script.js');
 		// include the back-end styles
-		$doc->addStyleSheet(JURI::root().$this->element['path'].'font-awesome.css');
+		//$doc->addStyleSheet(JURI::root().$this->element['path'].'font-awesome.css');
 		$doc->addStyleSheet(JURI::root().$this->element['path'].'style.css');
 		// output the social media inputs
 		echo '<div id="gk-social"><span>Follow us on the social media: </span> <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fgavickpro&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe> <a href="https://twitter.com/gavickpro" class="twitter-follow-button" data-show-count="false">Follow @gavickpro</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script></div>';  

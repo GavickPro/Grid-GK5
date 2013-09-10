@@ -22,7 +22,7 @@ class JFormFieldGridmanager extends JFormField {
 			<div class="gk_grid_blocks">
 				<div class="gk_grid_header">
 					<h3>'.JText::_('MOD_GRID_GRID_BLOCKS').'</h3>
-					<button id="gk_grid_add" class="gk_grid_btn"><i class="icon-plus"></i></button>
+					<button id="gk_grid_add" class="gk_grid_btn"><i class="icon-plus-2"></i></button>
 					<div id="gk_grid_form_add">
 						<div>
 							<p><label>'.JText::_('MOD_GRID_LIST_POSITION').'</label> <span><input type="text" size="14" id="gk_grid_form_add_position" /></span></p>
@@ -49,7 +49,7 @@ class JFormFieldGridmanager extends JFormField {
 						<span>'.JText::_('MOD_GRID_NO_BLOCKS').'</span>
 					</div>
 					
-					<h4><i class="icon-desktop"></i></h4>
+					<h4><i class="icon-screen"></i></h4>
 					
 					<div class="gk_grid_mobile_preview">
 						<div>
@@ -65,7 +65,7 @@ class JFormFieldGridmanager extends JFormField {
 								<span>'.JText::_('MOD_GRID_NO_BLOCKS').'</span>
 							</div>
 							
-							<h4><i class="icon-mobile-phone"></i></h4>
+							<h4><i class="icon-mobile"></i></h4>
 						</div>
 					</div>
 				</div>

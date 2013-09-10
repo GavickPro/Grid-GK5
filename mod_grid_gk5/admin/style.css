@@ -9,14 +9,6 @@
  **/
 
 /* Base overrides */
-#module-form > .width-40,
-#module-form > .width-60 {
-	width: 50%;
-}
-
-#module-form > .width-40 + .width-60 {
-	clear: both;
-}
 
 .pagetitle.icon-48-module {
 	display: block;
@@ -33,19 +25,6 @@
 	display: none;
 }
 
-.switcher-on,
-.switcher-off {
-	width: 94px;
-	height: 27px;
-	background: transparent url('switcher.png') no-repeat 0 0;
-	cursor: pointer;
-	float: left;
-	margin-top: 3px;
-}
-
-.switcher-off {
-	background-position: -94px 0;
-}
 
 span.unit {
 	line-height: 34px;
@@ -56,61 +35,6 @@ span.unit {
 	border: none !important;
 }
 
-div.panel > h3 {
-	height: 43px;
-	background: transparent url('interface.png') repeat-x 0 0 !important;
-	border: 1px solid #d8d8d8;
-
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	font: bold 12px/43px Arial, Helvetica, sans-serif;
-	text-transform: uppercase;
-}
-
-div.panel > h3 a {
-	color: #333;
-	text-shadow: 0 1px 1px #fff;
-}
-
-div.panel > h3 a:hover,
-div.panel h3.pane-toggler-down a {
-	color: #415e7f;
-}
-
-div.panel h3.pane-toggler-down {
-	border-bottom: 4px solid #415e7f !important;
-}
-
-.pane-toggler span {
-	background: transparent url('j_arrow.png') no-repeat 5px 50% !important;
-}
-
-.pane-toggler-down span {
-	background: transparent url('j_arrow_down.png') no-repeat 5px 50% !important;
-}
-
-.pane-sliders .content {
-	margin: 4px auto;
-	width: 99%;
-
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-}
-
-.gkHelpLink {
-	float: right !important;
-	width: 22px;
-	height: 21px;
-	cursor: pointer;
-	margin: 11px 12px 0 10px;
-	background: transparent url('interface.png') repeat-x 0 -70px !important;
-}
-
-a:hover.gkHelpLink {
-	background-position: 0 -47px !important;
-}
 
 /* form elements in the container */
 .panel fieldset.panelform > ul > li > label {
@@ -221,10 +145,13 @@ fieldset.panelform .desc {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	margin: 0;
+	margin: 0 auto;
 	max-width: 530px;
 	overflow: hidden;
 	width:  100%;
+}
+.ui-spinner-input {
+	max-width: 25px;
 }
 #gk_grid_manager > div {
 	
@@ -246,6 +173,8 @@ fieldset.panelform .desc {
 }
 
 .gk_grid_header h3 {
+	color: #666;
+	font-size:  13px;
 	background: transparent!important;
 	float: left;
 	margin: 5px 0;
@@ -264,7 +193,11 @@ fieldset.panelform .desc {
 	clear: none;
 	color: #fff;
 	cursor: pointer;
-	padding: 5px 10px;
+	padding: 5px 7px;
+	line-height: 14px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
 }
 .gk_grid_btn:hover { border: none}
 #gk_grid_add {
@@ -339,7 +272,12 @@ fieldset.panelform .desc {
 .gk_grid_form_edit > div > p > span {
 	float: right;
 }
-
+#gk_grid_form_add > div > p:first-child {
+	margin-bottom: 7px;
+}
+#gk_grid_form_add > div > p:last-child {
+	margin-top: 10px;
+}
 #gk_grid_form_add_position,
 .gk_grid_form_add_position {
 	max-width: 100px;
@@ -356,6 +294,7 @@ fieldset.panelform .desc {
 #gk_grid_form_add > div > p > span > input[type="number"],
 .gk_grid_form_edit > div > p > span > input[type="number"] {
 	text-align: center;
+	max-width: 50px;
 }
 
 #gk_grid_form_add_save,
@@ -365,6 +304,7 @@ fieldset.panelform .desc {
 
 /* Grid block list */
 #gk_grid_blocks_list {
+	margin: 0;
 	padding: 10px 10px 4px 10px;
 }
 
@@ -378,6 +318,8 @@ fieldset.panelform .desc {
 	font-size: 12px;
 	margin: 0 0 8px;
 	padding: 12px;
+	line-height: 12px;
+	list-style: none;
 }
 
 #gk_grid_blocks_list > li > div.gk_handler > i:first-child {
@@ -400,7 +342,7 @@ fieldset.panelform .desc {
     padding: 0 8px;
 }
 
-#gk_grid_blocks_list > li > div.gk_handler > .icon-pencil {
+#gk_grid_blocks_list > li > div.gk_handler > .icon-pencil-2 {
 	color: #999;
 	float: right;
 	margin-right: 10px;
@@ -596,4 +538,70 @@ body.dragging * {
 }
 .ui-spinner-down {
 	bottom: -3px;
+}
+
+::selection {
+	background: #415e7f;
+	color: #fff;
+}
+#gk_about_us {
+	max-width: 750px;
+	margin: 0 auto;
+}
+#gk_about_us a {
+	color: #415E7F;
+}
+#gk_about_us a:hover {
+	text-decoration: underline;
+}
+
+#moduleOptions > .accordion-group:first-child > .collapse.in {
+	min-height: 300px;
+}
+#moduleOptions .accordion-group {
+	max-width: 1050px;
+	margin: 0 auto 2px;
+}
+#moduleOptions div.controls > input,
+#moduleOptions div.controls > div.input-prepend > input {
+	text-align: right;
+}
+#jform_params_animation_type_chzn {
+	width: 165px!important;
+}
+#jform_params_animation_type_chzn .chzn-drop {
+	width: 163px !important
+}
+#jform_params_mobile_width,
+#jform_params_tablet_width {
+	width: 120px;
+	-webkit-border-radius: 3px 0 0 3px;
+	-moz-border-radius: 3px 0 0 3px;
+	border-radius: 3px 0 0 3px;
+}
+#moduleOptions .btn-group > .btn {
+	min-width: 56px;
+}
+
+#jform_params_mobile_width + span.add-on,
+#jform_params_tablet_width + span.add-on {
+	margin-left: -2px;
+	-webkit-border-radius: 0 3px 3px 0;
+	-moz-border-radius: 0 3px 3px 0;
+	border-radius: 0 3px 3px 0;
+}
+@media (max-width: 1050px) { 
+	#moduleOptions > .accordion-group > .collapse.in  {
+		min-height: auto;
+	}
+}
+@media (max-width: 480px) {
+	#gk_grid_manager > div:first-child,
+	#gk_grid_manager > div {
+		width: 100%;
+		clear: both;
+	}
+	#gk_grid_desktop_preview {
+		margin: 0 auto;
+	}
 }
