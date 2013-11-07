@@ -3,6 +3,11 @@ jQuery.noConflict();
 jQuery(document).ready(function() {
 	// GKGridManager module
 	// remove unnecessary labels 
+	// check Joomla! version and add suffix
+	if((jQuery('#gk_about_us').data('jversion')).substr(0,3) == '3.2') {
+		jQuery('#module-form').addClass('j32');
+	}
+	
 	jQuery('#jform_params_about_us-lbl').parent().css('display', 'none');
 	jQuery('#jform_params_about_us-lbl').parents().eq(2).find('.controls').css('margin-left', '15px');
 	jQuery('#jform_params___field1-lbl').parent().css('display', 'none');
