@@ -36,12 +36,12 @@ class GridGK5Helper {
             // set variable for false
             $engine_founded = false;
             // searching phrase mootools in scripts paths
-            if(array_search('https://ajax.googleapis.com/ajax/libs/jquery/1.10/jquery.min.js', $headData_keys) > 0) {
+            if(array_search('https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', $headData_keys) > 0) {
                 $engine_founded = true;
             }
             //
             if(!$engine_founded) {
-                $doc->addScript('https://ajax.googleapis.com/ajax/libs/jquery/1.10/jquery.min.js');
+                $doc->addScript('https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js');
             }
         }
 		// getting module ID
