@@ -12,6 +12,8 @@
 // no direct access
 defined('_JEXEC') or die;
 
+define('DS', DIRECTORY_SEPARATOR);
+
 // helper loading
 require_once (dirname(__FILE__).DS.'helper.php');
 // create class instance with params
