@@ -51,6 +51,11 @@
 	opacity: 0; filter: alpha(opacity=0);
 	overflow: hidden;
 	position: absolute;
+	-webkit-transform: scale(1.01);
+	-moz-transform: scale(1.01);
+	-ms-transform: scale(1.01);
+	-o-transform: scale(1.01);
+	transform: scale(1.01);
 	-webkit-transition-property: all;
 	-moz-transition-property: all;
 	-ms-transition-property: all;
