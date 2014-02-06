@@ -34,6 +34,10 @@
 	position: relative;
 }
 
+.gkGridGK5Wrap.active {
+	background-image: none!important;
+}
+
 .gkGridGK5Wrap > img {
 	display: block;
 	height: auto;

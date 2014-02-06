@@ -27,6 +27,10 @@ jQuery(window).load(function(){
 						gkGridGK5AddClass(jQuery(blocks[randomVector[j]]), 'active', j * (animation_speed / animation_divider));
 					}		
 				}
+				
+				setTimeout(function() {
+					jQuery(el.find('.gkGridGK5Wrap')).addClass('active');
+				}, blocks.length * (animation_speed / animation_divider));
 			}
 		});
 	}, 500);
