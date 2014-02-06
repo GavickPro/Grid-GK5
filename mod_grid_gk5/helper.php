@@ -87,49 +87,55 @@ class GridGK5Helper {
 	// function to generate the module grid elements
 	public function moduleRender() {
 		$amount = count($this->config["grid_data"]->blocks);		
-		// iterate all grid elements
-		for($i = 0; $i < $amount; $i++) {
-			$item = $this->config["grid_data"]->blocks[$i];
-			$position = trim($this->config["grid_data"]->blocks[$i]->POSITION);
-			$num = 1;
-			
-			if(substr($position, -1) == ']') {
-				$num = $position;
-				$position = substr($position, 0, stripos($position, '['));
-				$num = str_replace(array('[', ']', $position), '', $num);
+		if($amount > 0) {
+			// iterate all grid elements
+			for($i = 0; $i < $amount; $i++) {
+				$item = $this->config["grid_data"]->blocks[$i];
+				$position = trim($this->config["grid_data"]->blocks[$i]->POSITION);
+				$num = 1;
 				
-				if(is_numeric($num)) {
-					$num = $num * 1;
-				} else {
-					$num = 1;
+				if(substr($position, -1) == ']') {
+					$num = $position;
+					$position = substr($position, 0, stripos($position, '['));
+					$num = str_replace(array('[', ']', $position), '', $num);
+					
+					if(is_numeric($num)) {
+						$num = $num * 1;
+					} else {
+						$num = 1;
+					}
 				}
-			}
-			// render the specific blocks
-			echo '<div class="gkGridElement gkGrid-'.str_replace(array('[', ']'), array('_', ''), $item->ID).(($this->config['animation'] == 0) ? ' active' : '').'">';
-
-			$this->mod_getter = JModuleHelper::getModules($position);
-			
-			if(is_array($this->mod_getter) && count($this->mod_getter) > 0) {
-				$iterator = 0;
-				$founded = false;
-				foreach(array_keys($this->mod_getter) as $m) { 
-					if($iterator == $num - 1) {
-						echo JModuleHelper::renderModule($this->mod_getter[$m]); 
-						$founded = true;
-						break;
+				// render the specific blocks
+				echo '<div class="gkGridElement gkGrid-'.str_replace(array('[', ']'), array('_', ''), $item->ID).(($this->config['animation'] == 0) ? ' active' : '').'">';
+	
+				$this->mod_getter = JModuleHelper::getModules($position);
+				
+				if(is_array($this->mod_getter) && count($this->mod_getter) > 0) {
+					$iterator = 0;
+					$founded = false;
+					foreach(array_keys($this->mod_getter) as $m) { 
+						if($iterator == $num - 1) {
+							echo JModuleHelper::renderModule($this->mod_getter[$m]); 
+							$founded = true;
+							break;
+						}
+						
+						$iterator++;
 					}
 					
-					$iterator++;
+					if(!$founded) {
+						echo '<strong>Error:</strong> Specified module on the used module position doesn\'t exist!';
+					}
+				} else {
+					echo '<strong>Error:</strong> Specified module position doesn\'t exist or is blank!';
 				}
-				
-				if(!$founded) {
-					echo '<strong>Error:</strong> Specified module on the used module position doesn\'t exist!';
-				}
-			} else {
-				echo '<strong>Error:</strong> Specified module position doesn\'t exist or is blank!';
+				echo '</div>';
 			}
-			echo '</div>';
+		} else {
+			echo '<strong>Error:</strong> You didn\'t specified any blocks to display!';
 		}
+		
+		return $amount > 0;
 	}
 	// function to generate the module CSS code
 	public function moduleCSS() {
