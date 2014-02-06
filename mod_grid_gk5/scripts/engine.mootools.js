@@ -26,6 +26,10 @@ window.addEvent('load', function(){
 						gkGridGK5AddClass(blocks[randomVector[j]], 'active', j * (animation_speed / animation_divider));
 					}		
 				}
+				
+				setTimeout(function() {
+					el.getElement('.gkGridGK5Wrap').addClass('active');
+				}, blocks.length * (animation_speed / animation_divider));
 			}
 		});
 	}, 500);
