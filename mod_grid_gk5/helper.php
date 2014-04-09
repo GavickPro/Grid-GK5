@@ -146,9 +146,9 @@ class GridGK5Helper {
 		$output_mobile = '';
 		// ge the grid settings
 		$block_data = $this->config['grid_data']->blocks;
-		$mod_height_desktop = $this->config['grid_proportions_desktop'] * $this->config['grid_data']->heights->desktop;
-		$mod_height_tablet = $this->config['grid_proportions_tablet'] * $this->config['grid_data']->heights->tablet;
-		$mod_height_mobile = $this->config['grid_proportions_mobile'] * $this->config['grid_data']->heights->mobile;
+		$mod_height_desktop = $this->config['grid_data']->heights->desktop;
+		$mod_height_tablet = $this->config['grid_data']->heights->tablet;
+		$mod_height_mobile = $this->config['grid_data']->heights->mobile;
 		// define the blocks border
 		$output_desktop .= '#'.$this->config['module_id'].' .gkGridElement { border: ' . $this->config['grid_border'] . '; }' . "\n" . '.gkGridGK5 .gkImgDesktop { display: block; } .gkGridGK5 .gkImgTablet, .gkGridGK5 .gkImgMobile { display: none; } ' . "\n" ;
 		// define the blocks size and position
