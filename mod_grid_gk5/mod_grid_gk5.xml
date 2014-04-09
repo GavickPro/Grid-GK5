@@ -60,6 +60,10 @@
 			</fieldset>
 			<!-- tab manager -->
 			<fieldset name="GRID_MANAGER">
+				<field name="grid_proportions_desktop" type="text" default="1" size="3" label="MOD_GRID_PROPORTIONS_D" description="MOD_GRID_PROPORTIONS_D_DESC" />
+				<field name="grid_proportions_tablet" type="text" default="1" size="3" label="MOD_GRID_PROPORTIONS_T" description="MOD_GRID_PROPORTIONS_T_DESC" />
+				<field name="grid_proportions_mobile" type="text" default="1" size="3" label="MOD_GRID_PROPORTIONS_M" description="MOD_GRID_PROPORTIONS_M_DESC" />
+				
 				<field type="gridmanager" name="grid_data" />
 			</fieldset>
 			<!-- animation -->

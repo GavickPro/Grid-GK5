@@ -1,5 +1,5 @@
 /**
- * Tabs GK5 -back-end stylesheet
+ * Grid GK5 -back-end stylesheet
  * @package Joomla!
  * @Copyright (C) 2007-2012 Gavick.com
  * @ All rights reserved
@@ -122,6 +122,12 @@ a:hover.gkHelpLink {
 	padding: 0 20px 0 10px;
 	text-align: right;
 	max-width: 30% !important;
+}
+
+#jform_params_grid_proportions_desktop-lbl,
+#jform_params_grid_proportions_tablet-lbl,
+#jform_params_grid_proportions_mobile-lbl {
+	padding-left: 0;
 }
 
 .panel fieldset.panelform > ul > li fieldset {

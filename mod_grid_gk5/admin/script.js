@@ -223,6 +223,18 @@ jQuery(document).ready(function() {
 		}
 		
 		var renderPreview = function(size, sizeName, results, preview, type) {
+			var heightProportionsSize = sizeName == 'D' ? 'desktop' : sizeName == 'T' ? 'tablet' : 'mobile';
+			var heightProportions = Math.round((jQuery('#jform_params_grid_proportions_' + heightProportionsSize).val() * 100)) / 100;
+			
+			if(
+				parseFloat(heightProportions) === NaN ||
+				parseFloat(heightProportions) === 0
+			) {
+				heightProportions = 1;
+			} else {
+				heightProportions = parseFloat(heightProportions);
+			}
+			
 			var area = jQuery('#gk_grid_'+type+'_preview');
 			// find the max value in preview
 			var max = preview[0];
@@ -232,14 +244,14 @@ jQuery(document).ready(function() {
 				}
 			}
 			// set a new height;
-			area.css('height', max * (sizeName !== 'D' ? 25 : 30) + "px");
+			area.css('height', max * heightProportions * (sizeName !== 'D' ? 25 : 30) + "px");
 			area.attr('data-height', max);
 			// generate the output
 			var htmlOutput = '';
 			
 			for(var i = 0, len = results.length; i < len; i++) {
-				var elementSize = sizeName !== 'D' ? 25 : 30;
-				htmlOutput += '<div class="gkGridElm gkColor'+results[i]['COLOR_ID']+'" data-id="'+results[i]['ID']+'" style="width: '+(results[i]['SIZE_'+sizeName+'_W'] * elementSize)+'px; height: '+(results[i]['SIZE_'+sizeName+'_H'] * elementSize)+'px; top: '+((results[i]['POS_'+sizeName+'_Y'] * elementSize)+4)+'px; left: '+((results[i]['POS_'+sizeName+'_X'] * elementSize)+4)+'px;"></div>';
+				var elementSize = (sizeName !== 'D' ? 25 : 30);
+				htmlOutput += '<div class="gkGridElm gkColor'+results[i]['COLOR_ID']+'" data-id="'+results[i]['ID']+'" style="width: '+(results[i]['SIZE_'+sizeName+'_W'] * elementSize)+'px; height: '+(results[i]['SIZE_'+sizeName+'_H'] * elementSize * heightProportions)+'px; top: '+(((results[i]['POS_'+sizeName+'_Y'] * elementSize * heightProportions)+4))+'px; left: '+((results[i]['POS_'+sizeName+'_X'] * elementSize)+4)+'px;"></div>';
 			}
 			
 			area.html(htmlOutput);
@@ -526,6 +538,9 @@ jQuery(document).ready(function() {
 	    		calculatePreview('desktop');
 	    		calculatePreview('tablet');
 	    		calculatePreview('mobile');
+	    	},
+	    	refresh: function(which) {
+	    		calculatePreview(which);
 	    	}
 	  	};
 	  	
@@ -534,6 +549,10 @@ jQuery(document).ready(function() {
 
 	var gridManager = GKGridManager;
 	gridManager.init();
+	
+	jQuery('#jform_params_grid_proportions_desktop').keyup(function() { gridManager.refresh('desktop'); });
+	jQuery('#jform_params_grid_proportions_tablet').keyup(function() { gridManager.refresh('tablet'); });
+	jQuery('#jform_params_grid_proportions_mobile').keyup(function() { gridManager.refresh('mobile'); });
 });
 
 // add spinners in browsers without input[type="number"] support

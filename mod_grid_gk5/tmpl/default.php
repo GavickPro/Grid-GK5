@@ -27,9 +27,9 @@ defined('_JEXEC') or die('Restricted access');
 		<?php $res = $this->moduleRender(); ?>
 		 
 		<?php if($res) : ?>
-		<img class="gkImgDesktop" src="data:image/png;base64,<?php echo $this->generateBlankImage(60, 10 * $this->config['grid_data']->heights->desktop); ?>" alt="" />
-		<img class="gkImgTablet" src="data:image/png;base64,<?php echo $this->generateBlankImage(40, 10 * $this->config['grid_data']->heights->tablet); ?>" alt="" />
-		<img class="gkImgMobile" src="data:image/png;base64,<?php echo $this->generateBlankImage(20, 10 * $this->config['grid_data']->heights->mobile); ?>" alt="" />
+		<img class="gkImgDesktop" src="data:image/png;base64,<?php echo $this->generateBlankImage(600, 100 * $this->config['grid_proportions_desktop'] * $this->config['grid_data']->heights->desktop); ?>" alt="" />
+		<img class="gkImgTablet" src="data:image/png;base64,<?php echo $this->generateBlankImage(400, 100 * $this->config['grid_proportions_tablet'] * $this->config['grid_data']->heights->tablet); ?>" alt="" />
+		<img class="gkImgMobile" src="data:image/png;base64,<?php echo $this->generateBlankImage(200, 100 * $this->config['grid_proportions_mobile'] * $this->config['grid_data']->heights->mobile); ?>" alt="" />
 		<?php endif; ?>
 	</div>
 </div>
