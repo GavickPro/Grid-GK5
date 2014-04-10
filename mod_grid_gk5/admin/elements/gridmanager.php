@@ -18,7 +18,9 @@ class JFormFieldGridmanager extends JFormField {
 	protected $type = 'Gridmanager';
 
 	protected function getInput() {
-		$grid_form = '<div id="gk_grid_manager">
+		$grid_form = '
+		<div id="gk_grid_manager_state_info">'.JText::_('MOD_GRID_CHANGED').'</div>
+		<div id="gk_grid_manager">
 			<div class="gk_grid_blocks">
 				<div class="gk_grid_header">
 					<h3>'.JText::_('MOD_GRID_GRID_BLOCKS').'</h3>
