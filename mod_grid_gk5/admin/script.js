@@ -27,6 +27,7 @@ jQuery(document).ready(function() {
 		var addForm = jQuery('#gk_grid_form_add');
 		var blockListUL = jQuery('#gk_grid_blocks_list');
 		var dataJSON = jQuery('#jform_params_grid_data');
+		var changeState = false;
 		// templates
 		var listItem = '<li data-id="{{ID}}"><div class="gk_handler"><i class="icon-sign-blank gkColor{{COLOR_ID}}" data-colorid="{{COLOR_ID}}"></i><strong>{{POSITION}}</strong> <span data-size="{{SIZE_DATA}}" class="data-size-info">'+GKGridManagerLang["LIST_SIZE"]+' {{SIZE_D_W}} &times; {{SIZE_D_H}}</span> <i class="icon-remove" data-id="{{ID}}"></i> <i class="icon-pencil-2" data-id="{{ID}}"></i></div><div class="gk_grid_form_edit"><div><p><label>'+GKGridManagerLang["LIST_POSITION"]+'</label> <span><input type="text" size="15" class="gk_grid_form_add_position" value="{{POSITION}}" /></span></p><p><label>'+GKGridManagerLang["LIST_DESKTOP_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="6" value="{{SIZE_D_W}}" class="gk_grid_form_add_desktop_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE_D_H}}" class="gk_grid_form_add_desktop_h" /></span></p><p><label>'+GKGridManagerLang["LIST_TABLET_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="4" value="{{SIZE_T_W}}" class="gk_grid_form_add_tablet_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE_T_H}}" class="gk_grid_form_add_tablet_h" /></span></p><p><label>'+GKGridManagerLang["LIST_MOBILE_SIZE"]+'</label> <span><input type="number" size="1" min="1" max="2" value="{{SIZE_M_W}}" class="gk_grid_form_add_mobile_w" /> &times; <input type="number" size="1" min="1" max="9" value="{{SIZE_M_H}}" class="gk_grid_form_add_mobile_h" /></span></p><p><button class="gk_grid_form_edit_cancel gk_grid_btn" data-id="{{ID}}">'+GKGridManagerLang["LIST_CANCEL"]+'</button><button class="gk_grid_form_edit_save gk_grid_btn" data-id="{{ID}}">'+GKGridManagerLang["LIST_SAVE_BLOCK"]+'</button></p></div></div></li>';
 		// data storage
@@ -71,7 +72,14 @@ jQuery(document).ready(function() {
 			}
 		};
 		
-		var calculatePreview = function(type) {
+		var showStateInfo = function() {
+			if(!changeState) {
+				changeState = true;
+				jQuery('#gk_grid_manager_state_info').addClass('active');
+			}
+		}
+		
+		var calculatePreview = function(type, initial) {
 			if(blockList.length > 0) {
 				// specify the size of render area
 				var size = type == 'desktop' ? 6 : type == 'tablet' ? 4 : 2;
@@ -236,9 +244,25 @@ jQuery(document).ready(function() {
 				jQuery('#gk_grid_tablet_preview').html('<p>' + GKGridManagerLang["GRID_NO_BLOCKS"] + '</p>').css('height', 'auto');	
 				jQuery('#gk_grid_mobile_preview').html('<p>' + GKGridManagerLang["GRID_NO_BLOCKS"] + '</p>').css('height', 'auto');	
 			}
+			
+			if(!initial) {
+				showStateInfo();
+			}
 		}
 		
 		var renderPreview = function(size, sizeName, results, preview, type) {
+			var heightProportionsSize = sizeName == 'D' ? 'desktop' : sizeName == 'T' ? 'tablet' : 'mobile';
+			var heightProportions = Math.round((jQuery('#jform_params_grid_proportions_' + heightProportionsSize).val() * 100)) / 100;
+
+			if(
+				parseFloat(heightProportions) === NaN ||
+				parseFloat(heightProportions) === 0
+			) {
+				heightProportions = 1;
+			} else {
+				heightProportions = parseFloat(heightProportions);
+			}
+			
 			var area = jQuery('#gk_grid_'+type+'_preview');
 			// find the max value in preview
 			var max = preview[0];
@@ -248,14 +272,14 @@ jQuery(document).ready(function() {
 				}
 			}
 			// set a new height;
-			area.css('height', max * (sizeName !== 'D' ? 25 : 30) + "px");
+			area.css('height', max * heightProportions * (sizeName !== 'D' ? 25 : 30) + "px");
 			area.attr('data-height', max);
 			// generate the output
 			var htmlOutput = '';
 			
 			for(var i = 0, len = results.length; i < len; i++) {
-				var elementSize = sizeName !== 'D' ? 25 : 30;
-				htmlOutput += '<div class="gkGridElm gkColor'+results[i]['COLOR_ID']+'" data-id="'+results[i]['ID']+'" style="width: '+(results[i]['SIZE_'+sizeName+'_W'] * elementSize)+'px; height: '+(results[i]['SIZE_'+sizeName+'_H'] * elementSize)+'px; top: '+((results[i]['POS_'+sizeName+'_Y'] * elementSize)+4)+'px; left: '+((results[i]['POS_'+sizeName+'_X'] * elementSize)+4)+'px;"></div>';
+				var elementSize = (sizeName !== 'D' ? 25 : 30);
+				htmlOutput += '<div class="gkGridElm gkColor'+results[i]['COLOR_ID']+'" data-id="'+results[i]['ID']+'" style="width: '+(results[i]['SIZE_'+sizeName+'_W'] * elementSize)+'px; height: '+(results[i]['SIZE_'+sizeName+'_H'] * elementSize * heightProportions)+'px; top: '+(((results[i]['POS_'+sizeName+'_Y'] * elementSize * heightProportions)+4))+'px; left: '+((results[i]['POS_'+sizeName+'_X'] * elementSize)+4)+'px;"></div>';
 			}
 			
 			area.html(htmlOutput);
@@ -539,9 +563,12 @@ jQuery(document).ready(function() {
 	    		renderItems();
 	    		initBasicEvents();
 	    		initAddForm();
-	    		calculatePreview('desktop');
-	    		calculatePreview('tablet');
-	    		calculatePreview('mobile');
+	    		calculatePreview('desktop', true);
+				calculatePreview('tablet', true);
+				calculatePreview('mobile', true);
+	    	},
+	    	refresh: function(which) {
+	    		calculatePreview(which);
 	    	}
 	  	};
 	  	
@@ -550,6 +577,10 @@ jQuery(document).ready(function() {
 
 	var gridManager = GKGridManager;
 	gridManager.init();
+	
+	jQuery('#jform_params_grid_proportions_desktop').keyup(function() { gridManager.refresh('desktop'); });
+	jQuery('#jform_params_grid_proportions_tablet').keyup(function() { gridManager.refresh('tablet'); });
+	jQuery('#jform_params_grid_proportions_mobile').keyup(function() { gridManager.refresh('mobile'); });
 });
 
 // add spinners in browsers without input[type="number"] support

@@ -2,12 +2,12 @@
 <extension type="module" version="3.0" client="site" method="upgrade">
 	<name>Grid GK5</name>
 	<author>GavickPro</author>
-	<creationDate>06/02/2014</creationDate>
+	<creationDate>11/04/2014</creationDate>
 	<copyright>Copyright (C) 2014 GavickPro. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later</license>
 	<authorEmail>info@gavick.com</authorEmail>
 	<authorUrl>www.gavickpro.com</authorUrl>
-	<version>1.1</version>
+	<version>1.2</version>
 	<description><![CDATA[
 		<style type="text/css">
 			span.readonly { padding: 10px; font-family: Arial; font-size:13px !important; font-weight: normal !important; text-align: justify; color: #4d4d4d; line-height: 24px; }
@@ -21,7 +21,7 @@
 			span.readonly p.license { border-top: 1px solid #eee; font-size: 11px; margin: 30px 26px 0; padding: 6px 0; }
 		</style>
 		
-		<span class="readonly"><h1>Grid GK5<small>ver. 1.1</small></h1><p>GK5 is one product of the next generation of GavickPro extensions designed exclusively for Joomla 2.5+.</p><p>With the Grid GK5 module, you can implement space-saving grid area on websites and incorporate a variety of content types via modules. Thanks to the amazing grid management system we've integrated into the module, Grid GK5 remains easy, intuitive and quick to configure.  With built-in support for module embedding, the possibilities for implementing this new release are unlimited!</p> <p class='homepage'><a href='http://www.gavick.com/documentation/joomla-extensions/extensions-for-joomla-1-6/grid-gk5-module/' target='_blank'>Learn more at the Grid GK5 project website.</a></p><p class='license'>Grid GK5 is released under the <a target="_blank" href="http://www.gnu.org/licenses/gpl-2.0.html">GNU/GPL v2 license.</a></p></span>
+		<span class="readonly"><h1>Grid GK5<small>ver. 1.2</small></h1><p>GK5 is one product of the next generation of GavickPro extensions designed exclusively for Joomla 2.5+.</p><p>With the Grid GK5 module, you can implement space-saving grid area on websites and incorporate a variety of content types via modules. Thanks to the amazing grid management system we've integrated into the module, Grid GK5 remains easy, intuitive and quick to configure.  With built-in support for module embedding, the possibilities for implementing this new release are unlimited!</p> <p class='homepage'><a href='http://www.gavick.com/documentation/joomla-extensions/extensions-for-joomla-1-6/grid-gk5-module/' target='_blank'>Learn more at the Grid GK5 project website.</a></p><p class='license'>Grid GK5 is released under the <a target="_blank" href="http://www.gnu.org/licenses/gpl-2.0.html">GNU/GPL v2 license.</a></p></span>
 		<span class='tooltip-content'>Advanced grid module for Joomla! 3.x</span>
 	]]></description>
 	<files>
@@ -60,6 +60,10 @@
 			</fieldset>
 			<!-- tab manager -->
 			<fieldset name="GRID_MANAGER">
+				<field name="grid_proportions_desktop" type="text" class="input-small" default="1" size="3" label="MOD_GRID_PROPORTIONS_D" description="MOD_GRID_PROPORTIONS_D_DESC" />
+				<field name="grid_proportions_tablet" type="text" class="input-small" default="1" size="3" label="MOD_GRID_PROPORTIONS_T" description="MOD_GRID_PROPORTIONS_T_DESC" />
+				<field name="grid_proportions_mobile" type="text" class="input-small" default="1" size="3" label="MOD_GRID_PROPORTIONS_M" description="MOD_GRID_PROPORTIONS_M_DESC" />
+			
 				<field type="gridmanager" name="grid_data" />
 			</fieldset>
 			<!-- animation -->
@@ -80,15 +84,21 @@
 				        <option value="1">MOD_GRID_ENABLED</option>
 				</field>
 				
-				<field name="animation_type" type="list" default="opacity" class="input-medium" label="MOD_GRID_ANIMATION_TYPE" description="MOD_GRID_ANIMATION_TYPE_DESC">
-				        <option value="opacity">MOD_GRID_OPACITY</option>
-				        <option value="scale">MOD_GRID_SCALE</option>
-				        <option value="rotate">MOD_GRID_ROTATE</option>
-				        <option value="rotate3d">MOD_GRID_ROTATE3D</option>
-				        <option value="top">MOD_GRID_TOP</option>
-				        <option value="right">MOD_GRID_RIGHT</option>
-				        <option value="bottom">MOD_GRID_BOTTOM</option>
-				        <option value="left">MOD_GRID_LEFT</option>
+				<field name="animation_type" type="list" default="opacity" label="MOD_GRID_ANIMATION_TYPE" description="MOD_GRID_ANIMATION_TYPE_DESC">
+					<option value="opacity">MOD_GRID_OPACITY</option>
+					<option value="scale">MOD_GRID_SCALE</option>
+					<option value="scale-x">MOD_GRID_SCALE_X</option>
+					<option value="scale-y">MOD_GRID_SCALE_Y</option>
+					<option value="rotate">MOD_GRID_ROTATE</option>
+					<option value="rotate3d">MOD_GRID_ROTATE3D</option>
+					<option value="top">MOD_GRID_TOP</option>
+					<option value="right">MOD_GRID_RIGHT</option>
+					<option value="bottom">MOD_GRID_BOTTOM</option>
+					<option value="left">MOD_GRID_LEFT</option>
+					<option value="top-scale">MOD_GRID_TOP_SCALE</option>
+					<option value="right-scale">MOD_GRID_RIGHT_SCALE</option>
+					<option value="bottom-scale">MOD_GRID_BOTTOM_SCALE</option>
+					<option value="left-scale">MOD_GRID_LEFT_SCALE</option>
 				</field>
 			</fieldset>
 			<!-- advanced -->
@@ -97,13 +107,13 @@
 				<field name="mobile_width" type="text" class="input-medium input-px" default="600" label="MOD_GRID_MOBILE_WIDTH" description="MOD_GRID_MOBILE_WIDTH_DESC" />
 				
 				<field name="useCSS" type="radio" class="btn-group" default="1" label="MOD_GRID_USE_CSS" description="MOD_GRID_USE_CSS_DESC">
-				        <option value="0">MOD_GRID_FORCE_DISABLED</option>
-				        <option value="1">MOD_GRID_FORCE_ENABLED</option>
+				        <option value="0">MOD_GRID_DISABLED</option>
+						<option value="1">MOD_GRID_ENABLED</option>
 				</field>
 				
 				<field name="useScript" type="radio" class="btn-group" default="1" label="MOD_GRID_USE_SCRIPT" description="MOD_GRID_USE_SCRIPT_DESC">
-				        <option value="0">MOD_GRID_FORCE_DISABLED</option>
-				        <option value="1">MOD_GRID_FORCE_ENABLED</option>
+				        <option value="0">MOD_GRID_DISABLED</option>
+						<option value="1">MOD_GRID_ENABLED</option>
 				        <option value="2">MOD_GRID_AUTOMATIC</option>
 				</field>
 				

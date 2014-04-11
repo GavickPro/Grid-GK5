@@ -22,7 +22,7 @@ class JFormFieldAbout extends JFormField {
 		$version = new JVersion;
 		$ver = $version->getShortVersion();
 		
-		return '<div id="gk_about_us" data-jversion="'.$ver.'">' . JText::_('MOD_GRID_ABOUT_US_CONTENT') . '</div>';
+		return '<div id="gk_about_us" data-jversion="'.$ver.'">' . JText::_('MOD_GRID_ABOUT_US_CONTENT') . '</div></div>';
 	}
 }
 

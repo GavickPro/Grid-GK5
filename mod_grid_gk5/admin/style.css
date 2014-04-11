@@ -1,5 +1,5 @@
 /**
- * Tabs GK5 -back-end stylesheet
+ * Grid GK5 -back-end stylesheet
  * @package Joomla!
  * @Copyright (C) 2007-2012 Gavick.com
  * @ All rights reserved
@@ -48,6 +48,11 @@ span.unit {
 	max-width: 30% !important;
 }
 
+#jform_params_grid_proportions_desktop-lbl,
+#jform_params_grid_proportions_tablet-lbl,
+#jform_params_grid_proportions_mobile-lbl {
+	padding-left: 0;
+}
 .panel fieldset.panelform > ul > li fieldset {
 	line-height: 28px;
 }
@@ -656,3 +661,34 @@ body.dragging * {
 .j32 > .form-inline-header > .control-group > .controls > input { max-width: 99%; width: 99%}
 .j32 #attrib-IMAGE_SHOW_INTERFACE div.controls { margin: 0!important }
 .j32 #gk_grid_manager { margin: 0 }
+
+/* State message */
+#gk_grid_manager_state_info {
+	background: #faa;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.5;
+	margin: 5px -10px;
+	opacity: 0;
+	padding: 8px 12px;
+	text-align: center;
+	-webkit-transform: scaleY(0);
+	-moz-transform: scaleY(0);
+	-ms-transform: scaleY(0);
+	-o-transform: scaleY(0);
+	transform: scaleY(0);
+	-webkit-transition: all .3s ease-out;
+	-moz-transition: all .3s ease-out;
+	-ms-transition: all .3s ease-out;
+	 +	-o-transition: all .3s ease-out;
+	transition: all .3s ease-out;
+ }
+ #gk_grid_manager_state_info.active {
+	opacity: 1;
+	-webkit-transform: scaleY(1);
+	-moz-transform: scaleY(1);
+	-ms-transform: scaleY(1);
+	-o-transform: scaleY(1);
+	transform: scaleY(1);
+ }
