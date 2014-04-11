@@ -51,7 +51,7 @@ class JFormFieldGridmanager extends JFormField {
 						<span>'.JText::_('MOD_GRID_NO_BLOCKS').'</span>
 					</div>
 					
-					<h4><i class="icon-desktop"></i></h4>
+					<h4><i class="icon-screen"></i></h4>
 					
 					<div class="gk_grid_mobile_preview">
 						<div>
@@ -67,7 +67,7 @@ class JFormFieldGridmanager extends JFormField {
 								<span>'.JText::_('MOD_GRID_NO_BLOCKS').'</span>
 							</div>
 							
-							<h4><i class="icon-mobile-phone"></i></h4>
+							<h4><i class="icon-mobile"></i></h4>
 						</div>
 					</div>
 				</div>
