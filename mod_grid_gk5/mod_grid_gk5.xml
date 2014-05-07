@@ -2,12 +2,12 @@
 <extension type="module" version="3.0" client="site" method="upgrade">
 	<name>Grid GK5</name>
 	<author>GavickPro</author>
-	<creationDate>11/04/2014</creationDate>
+	<creationDate>07/05/2014</creationDate>
 	<copyright>Copyright (C) 2014 GavickPro. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later</license>
 	<authorEmail>info@gavick.com</authorEmail>
 	<authorUrl>www.gavickpro.com</authorUrl>
-	<version>1.2</version>
+	<version>1.2.1</version>
 	<description><![CDATA[
 		<style type="text/css">
 			span.readonly { padding: 10px; font-family: Arial; font-size:13px !important; font-weight: normal !important; text-align: justify; color: #4d4d4d; line-height: 24px; }
@@ -21,7 +21,7 @@
 			span.readonly p.license { border-top: 1px solid #eee; font-size: 11px; margin: 30px 26px 0; padding: 6px 0; }
 		</style>
 		
-		<span class="readonly"><h1>Grid GK5<small>ver. 1.2</small></h1><p>GK5 is one product of the next generation of GavickPro extensions designed exclusively for Joomla 2.5+.</p><p>With the Grid GK5 module, you can implement space-saving grid area on websites and incorporate a variety of content types via modules. Thanks to the amazing grid management system we've integrated into the module, Grid GK5 remains easy, intuitive and quick to configure.  With built-in support for module embedding, the possibilities for implementing this new release are unlimited!</p> <p class='homepage'><a href='http://www.gavick.com/documentation/joomla-extensions/extensions-for-joomla-1-6/grid-gk5-module/' target='_blank'>Learn more at the Grid GK5 project website.</a></p><p class='license'>Grid GK5 is released under the <a target="_blank" href="http://www.gnu.org/licenses/gpl-2.0.html">GNU/GPL v2 license.</a></p></span>
+		<span class="readonly"><h1>Grid GK5<small>ver. 1.2.1</small></h1><p>GK5 is one product of the next generation of GavickPro extensions designed exclusively for Joomla 2.5+.</p><p>With the Grid GK5 module, you can implement space-saving grid area on websites and incorporate a variety of content types via modules. Thanks to the amazing grid management system we've integrated into the module, Grid GK5 remains easy, intuitive and quick to configure.  With built-in support for module embedding, the possibilities for implementing this new release are unlimited!</p> <p class='homepage'><a href='http://www.gavick.com/documentation/joomla-extensions/extensions-for-joomla-1-6/grid-gk5-module/' target='_blank'>Learn more at the Grid GK5 project website.</a></p><p class='license'>Grid GK5 is released under the <a target="_blank" href="http://www.gnu.org/licenses/gpl-2.0.html">GNU/GPL v2 license.</a></p></span>
 		<span class='tooltip-content'>Advanced grid module for Joomla! 3.x</span>
 	]]></description>
 	<files>
